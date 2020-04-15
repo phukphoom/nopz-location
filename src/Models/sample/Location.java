@@ -6,6 +6,8 @@ public class Location implements Serializable {
     private double x = 0.0, y = 0.0;
     private String name;
 
+    public Location(){
+    }
     public Location(double x, double y, String name) {
         this.x = x;
         this.y = y;

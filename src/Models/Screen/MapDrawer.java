@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
@@ -22,27 +23,31 @@ import java.util.ArrayList;
 
 public class MapDrawer {
     private double MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y;
-    private ArrayList<Location> locs = FileWorker.readFileToLocations();
+    private ArrayList<Location> locs = FileWorker.readLocationListFromFile();
+    private ImageView mapImage = new ImageView();
+    private Stage stage;
 
-    public MapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y, ArrayList<Location> locs) throws IOException {
+    public MapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         this.MAP_HEIGHT = MAP_HEIGHT;
         this.MAP_WIDTH = MAP_WIDTH;
         this.RATIO = RATIO;
         this.user_x = user_x;
         this.user_y = user_y;
+        this.stage = new Stage();
 //        this.locs = locs;
-    }
-
-    public Parent getDrawScene() throws Exception {
-        Pane mapPane = new Pane();
-        ImageView mapImage = new ImageView();
-        mapImage.setImage(new Image(new FileInputStream("res/img/Map-1-1.jpg"), MAP_WIDTH, MAP_HEIGHT, true, false));
+        mapImage.setImage(new Image(new FileInputStream("src/Views/resource/Map12000,8000.jpg"), MAP_WIDTH, MAP_HEIGHT, true, false));
         mapImage.setScaleX(100/this.RATIO);
         mapImage.setScaleY(100/this.RATIO);
         mapImage.maxHeight(MAP_HEIGHT);
         mapImage.maxWidth(MAP_WIDTH);
         mapImage.setFitHeight(MAP_HEIGHT);
         mapImage.setFitWidth(MAP_WIDTH);
+    }
+
+    public Parent getDrawScene() throws Exception {
+        Pane mapPane = new Pane();
+        Label ratioDisplay = new Label("อัตราส่วน 1:" + (int) this.getRATIO());
+        ratioDisplay.setTextFill(Color.GRAY);
 
         mapPane.getChildren().add(mapImage);
 
@@ -52,17 +57,17 @@ public class MapDrawer {
             relY = this.relUser(l.getY(), 'y');
 
             ImageView locMarker = new ImageView();
-            locMarker.setImage(new Image(new FileInputStream("res/img/location_marker.png")));
-            locMarker.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO));
-            locMarker.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO));
+            locMarker.setImage(new Image(new FileInputStream("src/Views/resource/location_marker.png")));
+            locMarker.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO) - 5);
+            locMarker.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO) - 15);
             locMarker.setFitWidth(10);
             locMarker.setFitHeight(15);
 
             Text txt = new Text();
             txt.setText(l.getName() + "\n(" + l.getX() + ", " + l.getY() + ")");
             txt.setFill(Color.RED);
-            txt.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO + 20));
-            txt.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO + 20));
+            txt.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO + 20) - 5);
+            txt.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO + 20) - 7.5);
 
             mapPane.getChildren().addAll(locMarker, txt);
         }
@@ -71,7 +76,7 @@ public class MapDrawer {
         userMarker.setRadius(3.0f);
         userMarker.setCenterX(MAP_WIDTH / 2);
         userMarker.setCenterY(MAP_HEIGHT / 2);
-        mapPane.getChildren().add(userMarker);
+        mapPane.getChildren().addAll(userMarker, ratioDisplay);
 
         return mapPane;
     }
@@ -86,15 +91,24 @@ public class MapDrawer {
             public void handle(ScrollEvent scrollEvent) {
                 double deltaY = scrollEvent.getDeltaY();
                 if(deltaY != 0) {
-                    RATIO = Math.abs(RATIO + 0.05 * deltaY);
+                    RATIO = Math.abs(RATIO + 0.5 * deltaY);
                     if(RATIO < 10) RATIO = 10;
                     if(RATIO > 100) RATIO = 100;
-                    setLocs(locs);
+                    try {
+                        setLocs(locs);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     setMAP_HEIGHT(MAP_HEIGHT);
                     setMAP_WIDTH(MAP_WIDTH);
                     setRATIO(RATIO);
                     setUser_x(user_x);
                     setUser_y(user_y);
+                    mapImage.setScaleX(100/RATIO);
+                    mapImage.setScaleY(100/RATIO);
+//                    mapImage.setX();
+//                    mapImage.set
+//                    System.out.println(mapImage.getX() + " " + mapImage.getY());
 
                     try {
                         Node mapSc = getDrawScene();
@@ -104,9 +118,8 @@ public class MapDrawer {
                     }
                 }
             }});
-        Stage stage = new Stage();
-        stage.setScene(sc);
-        return stage;
+        this.stage.setScene(sc);
+        return this.stage;
     }
 
     public double relUser(double pos, char axis) {
@@ -116,6 +129,10 @@ public class MapDrawer {
             return user_y - pos;
         }
         return 0.0f;
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     public double getMAP_HEIGHT() {
@@ -162,7 +179,7 @@ public class MapDrawer {
         return locs;
     }
 
-    public void setLocs(ArrayList<Location> locs) {
+    public void setLocs(ArrayList<Location> locs) throws Exception {
         this.locs = locs;
     }
 }

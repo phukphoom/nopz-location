@@ -1,17 +1,16 @@
 package Models.Utilities;
 
 import Models.sample.Location;
-
 import java.io.*;
 import java.util.ArrayList;
 
 
 public class FileWorker {
-    public static void writeLocationToFile(double x, double y, String name) throws IOException {
+    public static void writeUserLocationToFile(double x, double y, String name) throws IOException {
         try {
-            DataInputStream dataInputStream = new DataInputStream(new FileInputStream("data/LocationData.dat"));
+            DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/UserLocation.dat"));
             if(dataInputStream.available() >= 0) {
-                DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("data/LocationData.dat", true));
+                DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/UserLocation.dat", false));
                 dataOutputStream.writeUTF(name);
                 dataOutputStream.writeDouble(x);
                 dataOutputStream.writeDouble(y);
@@ -19,20 +18,61 @@ public class FileWorker {
                 dataOutputStream.close();
             }
             dataInputStream.close();
-        } 
-        catch (IOException e) {
-            DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("data/LocationData.dat"));
+        }
+        catch (IOException exception) {
+            System.out.println(exception);
+            DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/UserLocation.dat"));
             dataOutputStream.writeUTF(name);
             dataOutputStream.writeDouble(x);
             dataOutputStream.writeDouble(y);
 
             dataOutputStream.close();
         }
+        System.out.println(">> Write :: " + name + " , " + x + " , "  + y + " To " + "UserLocation.dat");
     }
 
-    public static ArrayList<Location> readFileToLocations() throws IOException {
-        ArrayList<Location> returnArrayList = new ArrayList<>();
-        DataInputStream dataInputStream = new DataInputStream(new FileInputStream("data/LocationData.dat"));
+    public static Location readUserLocationFromFile() throws IOException {
+        Location returnLocation = new Location();
+        DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/UserLocation.dat"));
+        if(dataInputStream.available() != 0){
+            returnLocation.setName(dataInputStream.readUTF());
+            returnLocation.setX(dataInputStream.readDouble());
+            returnLocation.setY(dataInputStream.readDouble());
+        }
+        dataInputStream.close();
+
+        System.out.println(">> Get : " + returnLocation + " From " + "UserLocation.dat");
+        return returnLocation;
+    }
+
+    public static void writeLocationInListToFile(double x, double y, String name) throws IOException {
+        try {
+            DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/LocationData.dat"));
+            if(dataInputStream.available() >= 0) {
+                DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/LocationData.dat", true));
+                dataOutputStream.writeUTF(name);
+                dataOutputStream.writeDouble(x);
+                dataOutputStream.writeDouble(y);
+                dataOutputStream.close();
+            }
+            dataInputStream.close();
+        }
+        catch (IOException exception) {
+            System.out.println(exception);
+            DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/LocationData.dat"));
+            dataOutputStream.writeUTF(name);
+            dataOutputStream.writeDouble(x);
+            dataOutputStream.writeDouble(y);
+
+            dataOutputStream.close();
+
+        }
+        System.out.println(">> Write :: " + name + " , " + x + " , "  + y + " To " + "LocationData.dat");
+    }
+
+    public static ArrayList<Location> readLocationListFromFile() throws IOException {
+        ArrayList<Location> returnArrayList = new ArrayList<Location>();
+        DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/LocationData.dat"));
         while(dataInputStream.available() != 0) {
             String name = dataInputStream.readUTF();
             double x = dataInputStream.readDouble();
@@ -42,15 +82,17 @@ public class FileWorker {
         }
         dataInputStream.close();
 
+        System.out.println(">> Get : " + returnArrayList + " From " + "LocationData.dat");
         return returnArrayList;
     }
    
-    public static void deleteLocationByIndex(int delete_index) throws IOException{
-        ArrayList<Location> firstReadLocation = readFileToLocations();
-        //System.out.println(firstReadLocation);
+    public static void deleteLocationInListByIndex(int delete_index) throws IOException{
+        ArrayList<Location> firstReadLocation = readLocationListFromFile();
+
+        System.out.println(">> Delete ::  " + firstReadLocation.get(delete_index) + " From " + "LocationData.dat");
         firstReadLocation.remove(delete_index);
 
-        DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("data/LocationData.dat", false));
+        DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/LocationData.dat", false));
         for (int i=0;i<firstReadLocation.size();i++) {
             dataOutputStream.writeUTF(firstReadLocation.get(i).getName());
             dataOutputStream.writeDouble(firstReadLocation.get(i).getX());

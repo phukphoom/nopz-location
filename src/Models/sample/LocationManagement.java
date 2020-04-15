@@ -26,7 +26,7 @@ public class LocationManagement {
     }
 
     private Node getLocationListVBox() throws IOException {
-        locs = FileWorker.readFileToLocations();
+        locs = FileWorker.readLocationListFromFile();
         VBox locsPane = new VBox();
         for (int i = 0; i < locs.size() ; i++) {
             Location loc = locs.get(i);
@@ -52,7 +52,7 @@ public class LocationManagement {
                         @Override
                         public void handle(ActionEvent actionEvent) {
                             try {
-                                FileWorker.deleteLocationByIndex(currentIndex);
+                                FileWorker.deleteLocationInListByIndex(currentIndex);
                                 render();
                                 confirmDeleteStage.close();
                             } catch (IOException e) {
@@ -115,7 +115,7 @@ public class LocationManagement {
                         double x = Double.parseDouble(xAxis.getEnteredText());
                         double y = Double.parseDouble(yAxis.getEnteredText());
                         try {
-                            FileWorker.writeLocationToFile(x, y, name);
+                            FileWorker.writeLocationInListToFile(x, y, name);
                             addLocStage.close();
                             render();
                         } catch (IOException e) {

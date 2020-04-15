@@ -3,9 +3,8 @@ package Models.sample;
 import java.util.ArrayList;
 
 public class Aggregation {
-    
+
     public static ArrayList<Location> findShortestTravelingRoute(Location start_location, ArrayList<Location> location_list) throws Exception{
-        System.out.println("hey: " + location_list);
         // Check Exception
         if(start_location == null){
             throw new Exception("start_location is null");
@@ -30,7 +29,7 @@ public class Aggregation {
         double adjacency_matrix[][] = new double[location_list.size()+1][location_list.size()+1];
         for(int i=0;i<location_list.size()+1;i++){
             for(int j=0;j<location_list.size()+1;j++){
-        
+
                 if(i==0 && j==0){
                     adjacency_matrix[i][j] = 0;
                 }
@@ -42,12 +41,13 @@ public class Aggregation {
                 }
                 else{
                     adjacency_matrix[i][j] = location_list.get(i-1).distanceWith(location_list.get(j-1));
-                }          
+                }
             }
         }
 
         // Solve for tsp with data in adjacency_matrix
-        int result_solver_tsp[] = SolverTSP.getPathTSP(adjacency_matrix, location_list.size()+1);
+        SolverTSP solvertsp = new SolverTSP();
+        int result_solver_tsp[] = solvertsp.getPathTSP(adjacency_matrix, location_list.size()+1);
 
         // Mapping location_list with result_soler_tsp then return new ArrayList<Location> tour_path_tsp
         ArrayList<Location> location_path_tsp = new ArrayList<Location>();
@@ -61,8 +61,6 @@ public class Aggregation {
             }
         }
 
-        System.out.println("out: " + location_path_tsp);
-
         return location_path_tsp;
-    }  
+    }
 }

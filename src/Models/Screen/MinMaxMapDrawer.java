@@ -13,8 +13,8 @@ public class MinMaxMapDrawer extends MapDrawer{
     private double minRadius;
     private double maxRadius;
 
-    public MinMaxMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y, ArrayList<Location> locs) throws IOException {
-        super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y, locs);
+    public MinMaxMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
+        super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
         minRadius = min();
         maxRadius = max();
     }
@@ -22,13 +22,13 @@ public class MinMaxMapDrawer extends MapDrawer{
     @Override
     public Parent getDrawScene() throws Exception {
         Pane mapPane = (Pane) super.getDrawScene();
-        Circle minRadiusOfInterested = new Circle(minRadius / this.getRATIO());
+        Circle minRadiusOfInterested = new Circle((minRadius + 50) / this.getRATIO());
         minRadiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);
         minRadiusOfInterested.setCenterY(this.getMAP_HEIGHT() / 2);
         minRadiusOfInterested.setOpacity(0.3);
         minRadiusOfInterested.setFill(Color.GREEN);
 
-        Circle maxRadiusOfInterested = new Circle(maxRadius / this.getRATIO());
+        Circle maxRadiusOfInterested = new Circle((maxRadius + 50) / this.getRATIO());
         maxRadiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);
         maxRadiusOfInterested.setCenterY(this.getMAP_HEIGHT() / 2);
         maxRadiusOfInterested.setOpacity(0.3);
@@ -85,6 +85,4 @@ public class MinMaxMapDrawer extends MapDrawer{
         }
         return max;
     }
-
-
 }

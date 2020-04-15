@@ -1,6 +1,7 @@
 package Models.Screen;
 
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 public class ApproximateMapDrawer extends MapDrawer {
     private double radius;
 
-    public ApproximateMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y, ArrayList<Location> locs) throws IOException {
-        super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y, locs);
+    public ApproximateMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
+        super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
         radius = KNearest.approximate(this.getLocs(), new Location(this.getUser_x(), this.getUser_y(), "User"));
     }
 

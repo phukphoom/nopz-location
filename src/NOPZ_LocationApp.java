@@ -3,12 +3,6 @@ import javafx.stage.*;
 import javafx.scene.*;
 import javafx.fxml.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import Models.sample.Location;
-import Models.Utilities.*;
-
 public class NOPZ_LocationApp extends Application {
 
     public static void main(String[] args) {
@@ -26,5 +20,4 @@ public class NOPZ_LocationApp extends Application {
         stage.setResizable(false);
         stage.show();
     }
-
 }

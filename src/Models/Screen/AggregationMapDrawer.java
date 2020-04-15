@@ -2,6 +2,7 @@ package Models.Screen;
 
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import Models.sample.Location;
 import Models.sample.Aggregation;
@@ -10,9 +11,14 @@ import java.util.ArrayList;
 
 public class AggregationMapDrawer extends MapDrawer {
     ArrayList<Location> tspSolved;
-    public AggregationMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y, ArrayList<Location> locs) throws Exception {
-        super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y, locs);
+    public AggregationMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws Exception {
+        super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
         tspSolved = Aggregation.findShortestTravelingRoute(new Location(getUser_x(), getUser_y(), "user"), this.getLocs());
+    }
+
+    @Override
+    public void setLocs(ArrayList<Location> locs) throws Exception {
+        super.setLocs(locs);
     }
 
     @Override
@@ -26,6 +32,9 @@ public class AggregationMapDrawer extends MapDrawer {
 
             Line line = new Line((getMAP_WIDTH() / 2) - (relXi / getRATIO()), (getMAP_HEIGHT() / 2) - (relYi / getRATIO()),
                     (getMAP_WIDTH() / 2) - (relX2 / getRATIO()), (getMAP_HEIGHT() / 2) - (relY2 / getRATIO()));
+            line.setFill(Color.GREEN);
+            line.setStroke(Color.GREEN);
+            line.setOpacity(0.5);
             mapPane.getChildren().add(line);
         }
         return mapPane;
