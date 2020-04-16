@@ -15,18 +15,21 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Models.Utilities.FileWorker;
-import Models.sample.Location;
+import Models.Sample.Location;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MapDrawer {
+
+    // Data Fields
     private double MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y;
     private ArrayList<Location> locs = FileWorker.readLocationListFromFile();
     private ImageView mapImage = new ImageView();
     private Stage stage;
 
+    // Constructor
     public MapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         this.MAP_HEIGHT = MAP_HEIGHT;
         this.MAP_WIDTH = MAP_WIDTH;
@@ -34,7 +37,7 @@ public class MapDrawer {
         this.user_x = user_x;
         this.user_y = user_y;
         this.stage = new Stage();
-//        this.locs = locs;
+
         mapImage.setImage(new Image(new FileInputStream("src/Views/resource/Map12000,8000.jpg"), MAP_WIDTH, MAP_HEIGHT, true, false));
         mapImage.setScaleX(100/this.RATIO);
         mapImage.setScaleY(100/this.RATIO);
@@ -44,6 +47,58 @@ public class MapDrawer {
         mapImage.setFitWidth(MAP_WIDTH);
     }
 
+    // Setter
+    public void setMAP_HEIGHT(double MAP_HEIGHT) {
+        this.MAP_HEIGHT = MAP_HEIGHT;
+    }
+    public void setMAP_WIDTH(double MAP_WIDTH) {
+        this.MAP_WIDTH = MAP_WIDTH;
+    }
+    public void setRATIO(double RATIO) {
+        this.RATIO = RATIO;
+    }
+    public void setUser_x(double user_x) {
+        this.user_x = user_x;
+    }
+    public void setUser_y(double user_y) {
+        this.user_y = user_y;
+    }
+    public void setLocs(ArrayList<Location> locs) throws Exception {
+        this.locs = locs;
+    }
+
+    // Getter
+    public double getMAP_HEIGHT() {
+        return MAP_HEIGHT;
+    }
+    public double getMAP_WIDTH() {
+        return MAP_WIDTH;
+    }
+    public double getRATIO() {
+        return RATIO;
+    }
+    public double getUser_x() {
+        return user_x;
+    }
+    public double getUser_y() {
+        return user_y;
+    }
+    public ArrayList<Location> getLocs() {
+        return locs;
+    }
+    public Stage getStage() {
+        return stage;
+    }
+
+    // Method
+    public double relUser(double pos, char axis) {
+        if (axis == 'x') {
+            return user_x - pos;
+        } else if (axis == 'y') {
+            return user_y - pos;
+        }
+        return 0.0f;
+    }
     public Parent getDrawScene() throws Exception {
         Pane mapPane = new Pane();
         Label ratioDisplay = new Label("อัตราส่วน 1:" + (int) this.getRATIO());
@@ -80,7 +135,6 @@ public class MapDrawer {
 
         return mapPane;
     }
-
     public Stage getMapStage() throws Exception {
         BorderPane bp = new BorderPane();
         bp.setCenter(this.getDrawScene());
@@ -119,67 +173,7 @@ public class MapDrawer {
                 }
             }});
         this.stage.setScene(sc);
+        this.stage.setResizable(false);
         return this.stage;
-    }
-
-    public double relUser(double pos, char axis) {
-        if (axis == 'x') {
-            return user_x - pos;
-        } else if (axis == 'y') {
-            return user_y - pos;
-        }
-        return 0.0f;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public double getMAP_HEIGHT() {
-        return MAP_HEIGHT;
-    }
-
-    public void setMAP_HEIGHT(double MAP_HEIGHT) {
-        this.MAP_HEIGHT = MAP_HEIGHT;
-    }
-
-    public double getMAP_WIDTH() {
-        return MAP_WIDTH;
-    }
-
-    public void setMAP_WIDTH(double MAP_WIDTH) {
-        this.MAP_WIDTH = MAP_WIDTH;
-    }
-
-    public double getRATIO() {
-        return RATIO;
-    }
-
-    public void setRATIO(double RATIO) {
-        this.RATIO = RATIO;
-    }
-
-    public double getUser_x() {
-        return user_x;
-    }
-
-    public void setUser_x(double user_x) {
-        this.user_x = user_x;
-    }
-
-    public double getUser_y() {
-        return user_y;
-    }
-
-    public void setUser_y(double user_y) {
-        this.user_y = user_y;
-    }
-
-    public ArrayList<Location> getLocs() {
-        return locs;
-    }
-
-    public void setLocs(ArrayList<Location> locs) throws Exception {
-        this.locs = locs;
     }
 }

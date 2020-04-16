@@ -1,6 +1,7 @@
-package Models.sample;
+package Models.Sample;
 
 import Models.Utilities.FileWorker;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -18,13 +19,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class LocationManagement {
+
+    //Data Fileds
     private ArrayList<Location> locs;
     private Stage stage = new Stage();
 
+    // Cpnstructor
     public LocationManagement() throws IOException {
         render();
     }
 
+    // Setter
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    // Getter
+    public Stage getStage() {
+        return stage;
+    }
+
+    // Method
     private Node getLocationListVBox() throws IOException {
         locs = FileWorker.readLocationListFromFile();
         VBox locsPane = new VBox();
@@ -91,7 +106,6 @@ public class LocationManagement {
         }
         return locsPane;
     }
-
     public void render() throws IOException {
         VBox group = new VBox();
         Scene scene = new Scene(group);
@@ -155,13 +169,5 @@ public class LocationManagement {
         Node locsPane = this.getLocationListVBox();
         group.getChildren().addAll(locsPane, btnContainer);
         stage.setScene(scene);
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 }

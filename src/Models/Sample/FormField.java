@@ -1,4 +1,4 @@
-package Models.sample;
+package Models.Sample;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -6,27 +6,35 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-
 public class FormField {
+
+    // Data Fields
     private String label;
     private int maxLength = 250;
     private TextField txtField = new TextField();
     private boolean onlyNumber = false;
 
+    // Constructor
     public FormField(String label, int maxLength) {
         this.label = label;
         this.maxLength = maxLength;
     }
-
     public FormField(String label, int maxLength, boolean onlyNumber) {
         this(label, maxLength);
         this.onlyNumber = onlyNumber;
     }
 
+    // Setter
     public void setFieldText(String str) {
         this.txtField.setText(str);
     }
 
+    // Getter
+    public String getEnteredText() {
+        return this.txtField.getText();
+    }
+
+    // Method
     public Node getNode() {
         GridPane formContainer = new GridPane();
 //        formContainer.setAlignment(Pos.CENTER);
@@ -50,9 +58,5 @@ public class FormField {
         });
         formContainer.getChildren().addAll(label, txtField);
         return formContainer;
-    }
-
-    public String getEnteredText() {
-        return this.txtField.getText();
     }
 }

@@ -1,11 +1,13 @@
 package Models.Utilities;
 
-import Models.sample.Location;
+import Models.Sample.Location;
 import java.io.*;
 import java.util.ArrayList;
 
 
 public class FileWorker {
+
+    //Static Method
     public static void writeUserLocationToFile(double x, double y, String name) throws IOException {
         try {
             DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/UserLocation.dat"));
@@ -30,7 +32,6 @@ public class FileWorker {
         }
         System.out.println(">> Write :: " + name + " , " + x + " , "  + y + " To " + "UserLocation.dat");
     }
-
     public static Location readUserLocationFromFile() throws IOException {
         Location returnLocation = new Location();
         DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/UserLocation.dat"));
@@ -41,10 +42,9 @@ public class FileWorker {
         }
         dataInputStream.close();
 
-        System.out.println(">> Get : " + returnLocation + " From " + "UserLocation.dat");
+        System.out.println(">> Read : " + returnLocation + " From " + "UserLocation.dat");
         return returnLocation;
     }
-
     public static void writeLocationInListToFile(double x, double y, String name) throws IOException {
         try {
             DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/LocationData.dat"));
@@ -69,7 +69,6 @@ public class FileWorker {
         }
         System.out.println(">> Write :: " + name + " , " + x + " , "  + y + " To " + "LocationData.dat");
     }
-
     public static ArrayList<Location> readLocationListFromFile() throws IOException {
         ArrayList<Location> returnArrayList = new ArrayList<Location>();
         DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/LocationData.dat"));
@@ -82,10 +81,9 @@ public class FileWorker {
         }
         dataInputStream.close();
 
-        System.out.println(">> Get : " + returnArrayList + " From " + "LocationData.dat");
+        System.out.println(">> Read : " + returnArrayList + " From " + "LocationData.dat");
         return returnArrayList;
     }
-   
     public static void deleteLocationInListByIndex(int delete_index) throws IOException{
         ArrayList<Location> firstReadLocation = readLocationListFromFile();
 

@@ -1,30 +1,43 @@
 package Models.Screen;
 
-import Models.Utilities.FileWorker;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import Models.sample.Location;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Optional;
 
 public class SelectableMapDrawer extends MapDrawer {
+
+    // Data Fields
     private double pickX, pickY;
 
+    // Constructor
     public SelectableMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
     }
 
+    // Setter
+    public void setPickX(double pickX) {
+        this.pickX = pickX;
+    }
+    public void setPickY(double pickY) {
+        this.pickY = pickY;
+    }
+
+    // Getter
+    public double getPickX(){
+        return this.pickX;
+    }
+    public double getPickY(){
+        return this.pickY;
+    }
+
+
+    // Method
     @Override
     public Parent getDrawScene() throws Exception {
         Parent sc = super.getDrawScene();
@@ -52,13 +65,5 @@ public class SelectableMapDrawer extends MapDrawer {
             });
         });
         return sc;
-    }
-
-    public void setPickX(double pickX) {
-        this.pickX = pickX;
-    }
-
-    public void setPickY(double pickY) {
-        this.pickY = pickY;
     }
 }

@@ -1,10 +1,13 @@
-package Models.sample;/* This code contributed by PrinciRaj1992 form Medium*/
+/* This code contributed by PrinciRaj1992 form Medium*/
 /* Modified by Phukphoom Taphrae 62010609 */
+package Models.Sample;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
-public class SolverTSP
-{
+public class SolverTSP {
+
     //Data Fileds
     private double adjacencyMatrix[][];
     private int numberNode;
@@ -52,7 +55,7 @@ public class SolverTSP
         return second;
     }
 
-
+    // => recursive function for call in TSP to find finalPath[]
     private void TSPRec(double adjacency_matrix[][], double curr_bound, double curr_weight, int level, int curr_path[]){
         // .. curr_bound -> lower bound of the root node
         // .. curr_weight-> stores the weight of the path so far
@@ -117,9 +120,8 @@ public class SolverTSP
         }
     }
 
-    // => function to set up finalPath[]
-    private void TSP(double adjacency_matrix[][])
-    {
+    // => function start to find finalPath[]
+    private void TSP(double adjacency_matrix[][]) {
         int curr_path[] = new int[numberNode + 1];
 
         // Calculate initial lower bound for the root node using the formula 1/2 * (sum of first min + second min) for all edges.
@@ -160,10 +162,11 @@ public class SolverTSP
         finalPath = new int[numberNode+1];
 
         // Display input
-        System.out.println(">>> Display Adjacency Matrix <<<");
+        System.out.println("\t\t>>> Display Adjacency Matrix in Decimal");
         for(int i=0;i<numberNode;i++){
+            System.out.print("\t\t");
             for(int j=0;j<numberNode;j++){
-                System.out.printf("    %.2f",adjacencyMatrix[i][j]);
+                System.out.printf("    %05d",(int)adjacencyMatrix[i][j]);
             }
             System.out.println();
         }
@@ -172,8 +175,8 @@ public class SolverTSP
         TSP(adjacencyMatrix);
 
         // Display output
-        System.out.printf("TSP => Minimum cost\t: %.2f\n", finalCost);
-        System.out.printf("TSP => Path Taken\t: ");
+        System.out.printf("\t\t>>> TSP => Minimum cost\t: %.2f\n", finalCost);
+        System.out.printf("\t\t>>> TSP => Path Taken\t: ");
         for(int i = 0; i <= numberNode; i++)  {
             System.out.printf("%d ", finalPath[i]);
         }

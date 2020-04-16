@@ -1,9 +1,11 @@
-package Models.sample;
+/* @author Phukphoom Taphrae 62010609*/
+package Models.Sample;
 
 import java.util.ArrayList;
 
 public class Aggregation {
 
+    // Static Method
     public static ArrayList<Location> findShortestTravelingRoute(Location start_location, ArrayList<Location> location_list) throws Exception{
         // Check Exception
         if(start_location == null){

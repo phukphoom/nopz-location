@@ -4,21 +4,25 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import Models.sample.Location;
+import Models.Sample.Location;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MinMaxMapDrawer extends MapDrawer{
+
+    // Data Fields
     private double minRadius;
     private double maxRadius;
 
+    // Constructor
     public MinMaxMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
         minRadius = min();
         maxRadius = max();
     }
 
+    // Method
     @Override
     public Parent getDrawScene() throws Exception {
         Pane mapPane = (Pane) super.getDrawScene();
@@ -37,7 +41,6 @@ public class MinMaxMapDrawer extends MapDrawer{
 
         return mapPane;
     }
-
     public double min() {
         double relX, relY;
         ArrayList<Double> a = new ArrayList<>();
@@ -61,7 +64,6 @@ public class MinMaxMapDrawer extends MapDrawer{
         }
         return min;
     }
-
     public double max() {
         double relX, relY;
         ArrayList<Double> a = new ArrayList<>();

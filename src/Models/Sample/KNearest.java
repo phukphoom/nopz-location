@@ -1,10 +1,11 @@
 /* @author Asus*/
-package Models.Screen;
-import Models.sample.Location;
+package Models.Sample;
 
 import java.util.ArrayList;
 
 public class KNearest {
+
+    // Static Method
     public static double kNearest(int k, ArrayList<Location> locationList, Location start){
         Location spair;
         ArrayList<Location> outPut = new ArrayList<Location>();
@@ -26,12 +27,11 @@ public class KNearest {
 
         return outPut.get(k-1).distanceWith(start);
     }
-
     public static double approximate(ArrayList<Location> locationList, Location start){
-        double r = 0;
+        double radius = 0;
         for (int i = 0; i < locationList.size(); i++) {
-            r+=locationList.get(i).distanceWith(start);
+            radius+=locationList.get(i).distanceWith(start);
         }
-        return r/locationList.size();
+        return radius/locationList.size();
     }
 }

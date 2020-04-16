@@ -52,10 +52,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Button fx:id="mode1Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode1ButtonClicked" prefHeight="30.0" prefWidth="100.0" text="MODE_1" />
-                  <Button fx:id="mode2Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode2ButtonClicked" prefHeight="30.0" prefWidth="100.0" text="MODE_2" GridPane.columnIndex="1" />
-                  <Button fx:id="mode3Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode3ButtonClicked" prefHeight="30.0" prefWidth="100.0" text="MODE_3" GridPane.rowIndex="1" />
-                  <Button fx:id="mode4Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode4ButtonClicked" prefHeight="30.0" prefWidth="101.0" text="MODE_4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="mode1Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode1ButtonClicked" prefHeight="30.0" prefWidth="100.0" text="Aggregation" />
+                  <Button fx:id="mode2Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode2ButtonClicked" prefHeight="30.0" prefWidth="100.0" text="KNearest" GridPane.columnIndex="1" />
+                  <Button fx:id="mode3Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode3ButtonClicked" prefHeight="30.0" prefWidth="100.0" text="Approxinate" GridPane.rowIndex="1" />
+                  <Button fx:id="mode4Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode4ButtonClicked" prefHeight="30.0" prefWidth="101.0" text="MinMax" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

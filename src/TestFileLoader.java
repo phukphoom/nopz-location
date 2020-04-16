@@ -1,5 +1,3 @@
-package Models.sample;
-
 import Models.Utilities.FileWorker;
 
 import java.io.*;
