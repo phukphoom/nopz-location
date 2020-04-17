@@ -4,7 +4,6 @@ import Models.Screen.*;
 import Models.Utilities.FileWorker;
 import Models.Sample.Location;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,6 +57,7 @@ public class HomeController implements Initializable {
         System.out.println("  -> Label edit Clicked");
         try{
             SelectableMapDrawer mapDrawer = new SelectableMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
+            mapDrawer.getMapStage().setTitle("NOPZ Location  |  Set User Location");
             mapDrawer.getMapStage().show();
             mapDrawer.getMapStage().setOnHidden(stageEvent->{
                 mapDrawer.getConfirmPickStage().close();

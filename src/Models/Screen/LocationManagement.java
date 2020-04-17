@@ -3,11 +3,11 @@ package Models.Screen;
 import Models.Sample.Location;
 import Models.Utilities.FileWorker;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +26,7 @@ public class LocationManagement {
     //Data Fields
     private ArrayList<Location> locationList;
     private Stage locationListStage = new Stage();
+    private ScrollPane locationListScroll = new ScrollPane();
     double pickX, pickY;
 
 
@@ -35,6 +36,9 @@ public class LocationManagement {
         this.locationListStage.setHeight(500);
         this.locationListStage.setTitle("NOPZ Location  |  Shop Management");
         this.locationListStage.setResizable(false);
+
+        this.locationListScroll.setMaxHeight(400);
+        this.locationListScroll.setMaxWidth(365);
 
         renderStage();
     }
@@ -50,21 +54,25 @@ public class LocationManagement {
     }
 
     // Method
-    private Node getLocationListScroll() throws IOException {
+    private void updateLocationListScroll() throws IOException {
         locationList = FileWorker.readLocationListFromFile();
 
-        ScrollPane locationListScroll = new ScrollPane();
-        locationListScroll.setPrefHeight(450);
-        locationListScroll.setPrefWidth(400);
-        VBox locatioListVbox = new VBox();
+        VBox locationListVbox = new VBox();
+        locationListVbox.setPrefHeight(450);
 
+        locationListVbox.setPrefWidth(350);
         for (int i = 0; i < locationList.size() ; i++) {
             int currentIndex = i;
             Location location = locationList.get(i);
-            Label detailLocationLabel = new Label("ร้าน  "+ location.getName() + "  " + "อยู่ที่ตำแหน่ง" + " ( " + location.getX() + " , " + location.getY() + " ) ");
+            Label nameLocationLabel = new Label("ร้าน ["+ location.getName() + "]");
+            nameLocationLabel.setPrefWidth(120);
+
+            Label positionLabel = new Label("อยู่ที่ตำแหน่ง" + " ( " + (int)location.getX() + " , " + (int)location.getY() + " ) ");
+            positionLabel.setPrefWidth(200);
+
             Label deleteLocationLabel = new Label("ลบ");
             deleteLocationLabel.setTextFill(Color.RED);
-            deleteLocationLabel.setPadding(new Insets(5));
+            deleteLocationLabel.setPrefWidth(30);
             deleteLocationLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -102,17 +110,6 @@ public class LocationManagement {
                     Button okDelete = new Button("ยืนยัน");
                     okDelete.setPrefWidth(confirmDeleteStage.getWidth()/2);
                     okDelete.setPrefHeight(confirmDeleteStage.getHeight()/2);
-
-                    Button cancelDelete = new Button("ยกเลิก");
-                    cancelDelete.setPrefWidth(confirmDeleteStage.getWidth()/2);
-                    cancelDelete.setPrefHeight(confirmDeleteStage.getHeight()/2);
-
-                    btnContainer.getChildren().addAll(okDelete, cancelDelete);
-                    confirmDeleteContainer.getChildren().addAll(confirmLabel, btnContainer);
-
-                    confirmDeleteStage.setScene(new Scene(confirmDeleteContainer));
-                    confirmDeleteStage.show();
-
                     okDelete.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
@@ -126,9 +123,26 @@ public class LocationManagement {
                             }
                         }
                     });
+
+                    Button cancelDelete = new Button("ยกเลิก");
+                    cancelDelete.setPrefWidth(confirmDeleteStage.getWidth()/2);
+                    cancelDelete.setPrefHeight(confirmDeleteStage.getHeight()/2);
                     cancelDelete.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
+                            confirmDeleteStage.close();
+                        }
+                    });
+
+                    btnContainer.getChildren().addAll(okDelete, cancelDelete);
+                    confirmDeleteContainer.getChildren().addAll(confirmLabel, btnContainer);
+
+                    confirmDeleteStage.setScene(new Scene(confirmDeleteContainer));
+                    confirmDeleteStage.show();
+
+                    locationListStage.setOnHidden(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent windowEvent) {
                             confirmDeleteStage.close();
                         }
                     });
@@ -136,38 +150,50 @@ public class LocationManagement {
             });
 
             HBox locationGroup = new HBox();
-            locationGroup.setPadding(new Insets(20));
+            locationGroup.setPrefWidth(400);
+            locationGroup.setPrefHeight(40);
+            locationGroup.setPadding(new Insets(10,10,10,10));
             locationGroup.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            locationGroup.getChildren().addAll(detailLocationLabel, deleteLocationLabel);
-            locatioListVbox.getChildren().add(locationGroup);
+            locationGroup.getChildren().addAll(nameLocationLabel, positionLabel,deleteLocationLabel);
+            locationListVbox.getChildren().add(locationGroup);
         }
-        locationListScroll.setContent(locatioListVbox);
-        return locationListScroll;
+        locationListScroll.setContent(locationListVbox);
+
     }
     public void renderStage() throws IOException {
+        this.updateLocationListScroll();
+
         VBox mainContainer = new VBox();
+        mainContainer.setPrefWidth(locationListStage.getWidth());
+        mainContainer.setPrefHeight(locationListStage.getHeight());
+        mainContainer.setSpacing(10);
         mainContainer.setPadding(new Insets(10,10,10,10));
+
         HBox btnContainer = new HBox();
         btnContainer.setAlignment(Pos.CENTER);
         btnContainer.setSpacing(10);
-        btnContainer.setPadding(new Insets(10,10,10,10));
-
-        Node locationListScroll = this.getLocationListScroll();
 
         Button addLocationBtn = new Button("เพิ่มร้านค้า");
-        addLocationBtn.setAlignment(Pos.CENTER);
         addLocationBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Stage addLocationStage = new Stage();
+                addLocationStage.setTitle("Add Shop Location");
+                addLocationStage.setResizable(false);
 
                 VBox mainContainer = new VBox();
-                mainContainer.setPadding(new Insets(5));
+                mainContainer.setAlignment(Pos.CENTER);
+                mainContainer.setSpacing(10);
+                mainContainer.setPadding(new Insets(10,10,10,10));
 
                 HBox btnContainer = new HBox();
                 btnContainer.setAlignment(Pos.CENTER);
+                btnContainer.setSpacing(10);
 
                 FormField locationName = new FormField("ชื่อร้าน", 100, false);
+
+                Label pickedLocationLabel = new Label("( ? , ? )");
+
                 Button pickLocation = new Button("เลือกที่อยู่ร้าน");
                 pickLocation.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -177,16 +203,18 @@ public class LocationManagement {
                             double RATIO = 10.0f;
                             Location user = FileWorker.readUserLocationFromFile();
                             SelectableMapDrawer mapDrawer = new SelectableMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, user.getX(), user.getY());
-                            Stage editStage = mapDrawer.getMapStage();
-                            editStage.show();
+                            mapDrawer.getMapStage().setTitle("NOPZ Location  |  Set Shop Location");
+                            mapDrawer.getMapStage().show();
 
-                            editStage.setOnHidden(new EventHandler<WindowEvent>() {
+                            mapDrawer.getMapStage().setOnHidden(new EventHandler<WindowEvent>() {
                                 @Override
                                 public void handle(WindowEvent windowEvent) {
                                     try{
                                         if(mapDrawer.isPicked()){
                                             pickX = mapDrawer.getPickX();
                                             pickY = mapDrawer.getPickY();
+
+                                            pickedLocationLabel.setText("( " + (int)pickX + " , " + (int)pickY + " )");
                                         }
                                     }
                                     catch (Exception exception){
@@ -227,22 +255,29 @@ public class LocationManagement {
                 });
 
                 btnContainer.getChildren().addAll(okBtn, cancelBtn);
-                mainContainer.getChildren().addAll(locationName.getNode(), pickLocation,btnContainer);
+                mainContainer.getChildren().addAll(locationName.getNode(), pickedLocationLabel, pickLocation, btnContainer);
 
                 addLocationStage.setScene(new Scene(mainContainer));
                 addLocationStage.show();
+
+                locationListStage.setOnHidden(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent windowEvent) {
+                        addLocationStage.close();
+                    }
+                });
             }
         });
 
-        Button cancelBtn = new Button("ออก");
-        cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
+        Button exitBtn = new Button("ออก");
+        exitBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 locationListStage.close();
             }
         });
 
-        btnContainer.getChildren().addAll(addLocationBtn, cancelBtn);
+        btnContainer.getChildren().addAll(addLocationBtn, exitBtn);
         mainContainer.getChildren().addAll(locationListScroll, btnContainer);
 
         Scene scene = new Scene(mainContainer);

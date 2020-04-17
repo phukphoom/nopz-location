@@ -25,6 +25,8 @@ public class SelectableMapDrawer extends MapDrawer {
         confirmPickStage.setTitle("Confirm");
         confirmPickStage.setResizable(false);
         confirmPickStage.setAlwaysOnTop(true);
+        confirmPickStage.setHeight(120);
+        confirmPickStage.setWidth(250);
     }
 
     // Setter
@@ -55,9 +57,6 @@ public class SelectableMapDrawer extends MapDrawer {
     public Parent getDrawScene() throws Exception {
         Parent sc = super.getDrawScene();
         sc.setOnMouseClicked(eventClick->{
-
-            confirmPickStage.setHeight(120);
-            confirmPickStage.setWidth(250);
 
             VBox confirmPickContainer = new VBox();
             confirmPickContainer.setAlignment(Pos.CENTER);

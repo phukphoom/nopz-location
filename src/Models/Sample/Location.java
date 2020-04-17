@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Location implements Serializable {
 
-    // Data Fileds
+    // Data Fields
     private double x = 0.0, y = 0.0;
     private String name;
 

@@ -1,6 +1,7 @@
 package Models.Screen;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -104,6 +105,7 @@ public class MapDrawer {
     public Parent getDrawScene() throws Exception {
         Pane mapPane = new Pane();
         Label ratioDisplay = new Label("อัตราส่วน 1:" + (int) this.getRATIO());
+        ratioDisplay.setPadding(new Insets(10,10,10,10));
         ratioDisplay.setTextFill(Color.GRAY);
 
         mapPane.getChildren().add(mapImage);
@@ -121,7 +123,7 @@ public class MapDrawer {
             locMarker.setFitHeight(15);
 
             Text txt = new Text();
-            txt.setText(l.getName() + "\n(" + l.getX() + ", " + l.getY() + ")");
+            txt.setText(l.getName() + "\n(" + (int)l.getX() + ", " + (int)l.getY() + ")");
             txt.setFill(Color.RED);
             txt.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO + 20) - 5);
             txt.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO + 20) - 7.5);

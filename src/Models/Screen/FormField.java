@@ -5,7 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class FormField {
@@ -39,8 +38,6 @@ public class FormField {
     // Method
     public Node getNode() {
         GridPane formContainer = new GridPane();
-        formContainer.setPadding(new Insets(10));
-        formContainer.setVgap(10);
         formContainer.setHgap(10);
         Text label = new Text();
         label.setText(this.label);

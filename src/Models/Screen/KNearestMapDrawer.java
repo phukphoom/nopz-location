@@ -1,6 +1,7 @@
 package Models.Screen;
 
 import Models.Sample.KNearest;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -15,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import Models.Sample.Location;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ public class KNearestMapDrawer extends MapDrawer {
         kSelectorStage.setTitle("KSelector");
         kSelectorStage.setResizable(false);
         kSelectorStage.setAlwaysOnTop(true);
+        kSelectorStage.setWidth(250);
+        kSelectorStage.setHeight(300);
+        kSelectorStage.centerOnScreen();
         kSelectorStage.show();
 
         ArrayList<String> choices = new ArrayList<>();
@@ -50,10 +55,6 @@ public class KNearestMapDrawer extends MapDrawer {
     public Parent getDrawScene() throws Exception {
         Pane mapPane = (Pane) super.getDrawScene();
 
-        kSelectorStage.setWidth(250);
-        kSelectorStage.setHeight(120);
-        kSelectorStage.centerOnScreen();
-
         VBox mainContainer = new VBox();
         mainContainer.setAlignment(Pos.CENTER);
         mainContainer.setSpacing(10);
@@ -61,6 +62,8 @@ public class KNearestMapDrawer extends MapDrawer {
 
         HBox inputContainer = new HBox();
         inputContainer.setSpacing(10);
+        inputContainer.setPrefWidth(kSelectorStage.getWidth());
+        inputContainer.setPrefHeight(kSelectorStage.getHeight()/3);
 
         Label label = new Label("กรุณาเลือกจำนวนร้านที่ต้องการทราบ");
         label.setAlignment(Pos.CENTER);
@@ -68,10 +71,10 @@ public class KNearestMapDrawer extends MapDrawer {
         label.setPrefHeight(kSelectorStage.getHeight()/3);
 
         Button okBtn = new Button("ตกลง");
-        okBtn.setPrefWidth(kSelectorStage.getWidth()/2);
+        okBtn.setPrefWidth(kSelectorStage.getWidth()/4);
         okBtn.setPrefHeight(kSelectorStage.getHeight()/3);
 
-        choiceBox.setPrefWidth(kSelectorStage.getWidth()/2);
+        choiceBox.setPrefWidth(kSelectorStage.getWidth()/4);
         choiceBox.setPrefHeight(kSelectorStage.getHeight()/2);
 
 
@@ -97,6 +100,13 @@ public class KNearestMapDrawer extends MapDrawer {
         this.getStage().setOnHidden(event->{
             kSelectorStage.close();
         });
+        kSelectorStage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                getStage().close();
+            }
+        });
+
         return mapPane;
     }
 }
