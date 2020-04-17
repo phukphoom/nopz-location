@@ -35,10 +35,7 @@ public class KNearestMapDrawer extends MapDrawer {
         kSelectorStage.setTitle("KSelector");
         kSelectorStage.setResizable(false);
         kSelectorStage.setAlwaysOnTop(true);
-        kSelectorStage.setWidth(250);
-        kSelectorStage.setHeight(300);
         kSelectorStage.centerOnScreen();
-        kSelectorStage.show();
 
         ArrayList<String> choices = new ArrayList<>();
         for (int i = 1; i <= this.getLocs().size(); i++) {
@@ -47,6 +44,7 @@ public class KNearestMapDrawer extends MapDrawer {
         choiceBox.getItems().addAll(choices);
         if(!choices.isEmpty()){
             choiceBox.setValue(choiceBox.getItems().get(0));
+            kSelectorStage.show();
         }
     }
 
@@ -62,21 +60,11 @@ public class KNearestMapDrawer extends MapDrawer {
 
         HBox inputContainer = new HBox();
         inputContainer.setSpacing(10);
-        inputContainer.setPrefWidth(kSelectorStage.getWidth());
-        inputContainer.setPrefHeight(kSelectorStage.getHeight()/3);
 
         Label label = new Label("กรุณาเลือกจำนวนร้านที่ต้องการทราบ");
         label.setAlignment(Pos.CENTER);
-        label.setPrefWidth(kSelectorStage.getWidth());
-        label.setPrefHeight(kSelectorStage.getHeight()/3);
 
         Button okBtn = new Button("ตกลง");
-        okBtn.setPrefWidth(kSelectorStage.getWidth()/4);
-        okBtn.setPrefHeight(kSelectorStage.getHeight()/3);
-
-        choiceBox.setPrefWidth(kSelectorStage.getWidth()/4);
-        choiceBox.setPrefHeight(kSelectorStage.getHeight()/2);
-
 
         Circle radiusOfInterested = new Circle(radius / this.getRATIO());
         radiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);

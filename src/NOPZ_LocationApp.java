@@ -35,7 +35,7 @@ public class NOPZ_LocationApp extends Application {
         stage.show();
 
         if(root.isDisable() && FileWorker.readSettings().isLock()){
-            login(root,stage);
+            login(root, stage);
         }
 
         stage.setOnHidden(new EventHandler<WindowEvent>() {

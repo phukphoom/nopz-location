@@ -116,10 +116,15 @@ public class HomeController implements Initializable {
         try{
             KNearestMapDrawer mapDrawer = new KNearestMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  KNearest");
+            if(FileWorker.readLocationListFromFile().size() <= 0) {
+                throw new Exception("มีร้านไม่เพียงพอ กรุณาเพิ่มร้านค้า!");
+            }
             mapDrawer.getMapStage().show();
         }
         catch(Exception exception){
             System.out.println(exception);
+            Alert alertBox = new Alert(Alert.AlertType.ERROR, exception.getMessage());
+            alertBox.showAndWait();
         }
     }
 
@@ -129,9 +134,14 @@ public class HomeController implements Initializable {
         try{
             ApproximateMapDrawer mapDrawer = new ApproximateMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Approximate");
+            if(FileWorker.readLocationListFromFile().size() <= 0) {
+                throw new Exception("มีร้านไม่เพียงพอ กรุณาเพิ่มร้านค้า!");
+            }
             mapDrawer.getMapStage().show();
         }
         catch(Exception exception){
+            Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
+            alertBox.showAndWait();
             System.out.println(exception);
         }
     }
@@ -145,6 +155,8 @@ public class HomeController implements Initializable {
             mapDrawer.getMapStage().show();
         }
         catch(Exception exception){
+            Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
+            alertBox.showAndWait();
             System.out.println(exception);
         }
     }

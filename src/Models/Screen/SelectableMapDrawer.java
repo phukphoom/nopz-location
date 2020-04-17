@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -83,11 +84,24 @@ public class SelectableMapDrawer extends MapDrawer {
 
             confirmPickStage.setScene(new Scene(confirmPickContainer));
             confirmPickStage.show();
+            confirmPickStage.setOnShowing(e->{
+                sc.setDisable(true);
+            });
+            confirmPickStage.setOnHidden(e->{
+                sc.setDisable(false);
+            });
             okPick.setOnAction(event -> {
                 pickX = eventClick.getX();
                 pickY = eventClick.getY();
                 pickX = (pickX - this.getMAP_WIDTH()/2) * this.getRATIO() + this.getUser_x();
                 pickY = (pickY - this.getMAP_HEIGHT()/2) * this.getRATIO() + this.getUser_y();
+
+                if(pickX < -56130.f || pickY < -37240 || pickX > 56075 || pickY > 37280) {
+                    confirmPickStage.close();
+                    Alert alertBox = new Alert(Alert.AlertType.WARNING, "ไม่สามารถเลือกจุดที่อยู่นอกแผนที่ได้!");
+                    alertBox.showAndWait();
+                    return;
+                }
 
                 isPicked = true;
                 confirmPickStage.close();

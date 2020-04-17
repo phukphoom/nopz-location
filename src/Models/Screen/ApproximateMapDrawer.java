@@ -1,5 +1,6 @@
 package Models.Screen;
 
+import Models.Sample.Approximate;
 import Models.Sample.KNearest;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
@@ -17,7 +18,7 @@ public class ApproximateMapDrawer extends MapDrawer {
     // Constructor
     public ApproximateMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
-        radius = KNearest.approximate(this.getLocs(), new Location(this.getUser_x(), this.getUser_y(), "User"));
+        radius = Approximate.approximate(this.getLocs(), new Location(this.getUser_x(), this.getUser_y(), "User"));
     }
 
     // Method

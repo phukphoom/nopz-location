@@ -27,11 +27,5 @@ public class KNearest {
 
         return outPut.get(k-1).distanceWith(start);
     }
-    public static double approximate(ArrayList<Location> locationList, Location start){
-        double radius = 0;
-        for (int i = 0; i < locationList.size(); i++) {
-            radius += locationList.get(i).distanceWith(start);
-        }
-        return radius/locationList.size();
-    }
+
 }

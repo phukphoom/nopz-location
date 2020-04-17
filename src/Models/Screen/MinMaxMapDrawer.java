@@ -1,10 +1,12 @@
 package Models.Screen;
 
+import Models.Utilities.FileWorker;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import Models.Sample.Location;
+import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,36 +14,44 @@ import java.util.ArrayList;
 public class MinMaxMapDrawer extends MapDrawer{
 
     // Data Fields
-    private double minRadius;
-    private double maxRadius;
+    private Location minLocation;
+    private Location maxLocation;
 
     // Constructor
     public MinMaxMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
-        minRadius = min();
-        maxRadius = max();
+        minLocation = min();
+        maxLocation = max();
+        Location userLoc = FileWorker.readUserLocationFromFile();
+        setUser_x(userLoc.getX()); setUser_y(userLoc.getY());
     }
 
     // Method
     @Override
     public Parent getDrawScene() throws Exception {
         Pane mapPane = (Pane) super.getDrawScene();
-        Circle minRadiusOfInterested = new Circle((minRadius + 50) / this.getRATIO());
-        minRadiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);
-        minRadiusOfInterested.setCenterY(this.getMAP_HEIGHT() / 2);
-        minRadiusOfInterested.setOpacity(0.3);
-        minRadiusOfInterested.setFill(Color.GREEN);
+        double relXmax = this.relUser(maxLocation.getX(), 'x');
+        double relYmax = this.relUser(maxLocation.getY(), 'y');
+        double relXmin = this.relUser(minLocation.getX(), 'x');
+        double relYmin = this.relUser(minLocation.getY(), 'y');
 
-        Circle maxRadiusOfInterested = new Circle((maxRadius + 50) / this.getRATIO());
-        maxRadiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);
-        maxRadiusOfInterested.setCenterY(this.getMAP_HEIGHT() / 2);
-        maxRadiusOfInterested.setOpacity(0.3);
-        maxRadiusOfInterested.setFill(Color.YELLOW);
-        mapPane.getChildren().addAll(minRadiusOfInterested, maxRadiusOfInterested);
+        Line maxLine = new Line((getMAP_WIDTH() / 2) - (relXmax / getRATIO()), (getMAP_HEIGHT() / 2) - (relYmax / getRATIO()),
+                getMAP_WIDTH() / 2, getMAP_HEIGHT() / 2);
+        maxLine.setFill(Color.YELLOW);
+        maxLine.setStroke(Color.YELLOW);
+        maxLine.setOpacity(0.5);
+        mapPane.getChildren().add(maxLine);
+
+        Line minLine = new Line((getMAP_WIDTH() / 2) - (relXmin / getRATIO()), (getMAP_HEIGHT() / 2) - (relYmin / getRATIO()),
+                (getMAP_WIDTH() / 2), (getMAP_HEIGHT() / 2));
+        minLine.setFill(Color.GREEN);
+        minLine.setStroke(Color.GREEN);
+        minLine.setOpacity(0.5);
+        mapPane.getChildren().add(minLine);
 
         return mapPane;
     }
-    public double min() {
+    public Location min() {
         double relX, relY;
         ArrayList<Double> a = new ArrayList<>();
         for (Location l : getLocs()) {
@@ -57,14 +67,16 @@ public class MinMaxMapDrawer extends MapDrawer{
                 a.add(0.0);
         }
         double min = a.get(0);
+        int index = 0;
         for (int i=0;i<a.size();i++) {
-            if(min>a.get(i))
+            if(min>a.get(i)) {
                 min = a.get(i);
-            else{}
+                index = i;
+            }
         }
-        return min;
+        return getLocs().get(index);
     }
-    public double max() {
+    public Location max() {
         double relX, relY;
         ArrayList<Double> a = new ArrayList<>();
         for (Location l : getLocs()) {
@@ -80,11 +92,13 @@ public class MinMaxMapDrawer extends MapDrawer{
                 a.add(0.0);
         }
         double max = a.get(0);
+        int index = 0;
         for (int i=0;i<a.size();i++) {
-            if(max<a.get(i))
+            if(max<a.get(i)) {
                 max = a.get(i);
-            else{}
+                index = i;
+            }
         }
-        return max;
+        return getLocs().get(index);
     }
 }
