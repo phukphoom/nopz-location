@@ -45,6 +45,8 @@ public class MapDrawer {
         mapImage.maxWidth(MAP_WIDTH);
         mapImage.setFitHeight(MAP_HEIGHT);
         mapImage.setFitWidth(MAP_WIDTH);
+        mapImage.setX(-user_x/RATIO);
+        mapImage.setY(-user_y/RATIO);
     }
 
     // Setter
@@ -145,7 +147,7 @@ public class MapDrawer {
             public void handle(ScrollEvent scrollEvent) {
                 double deltaY = scrollEvent.getDeltaY();
                 if(deltaY != 0) {
-                    RATIO = Math.abs(RATIO + 0.5 * deltaY);
+                    RATIO = Math.abs(RATIO + 0.05 * -deltaY);
                     if(RATIO < 10) RATIO = 10;
                     if(RATIO > 100) RATIO = 100;
                     try {
@@ -160,9 +162,9 @@ public class MapDrawer {
                     setUser_y(user_y);
                     mapImage.setScaleX(100/RATIO);
                     mapImage.setScaleY(100/RATIO);
-//                    mapImage.setX();
-//                    mapImage.set
-//                    System.out.println(mapImage.getX() + " " + mapImage.getY());
+
+                    mapImage.setX(-user_x/RATIO);
+                    mapImage.setY(-user_y/RATIO);
 
                     try {
                         Node mapSc = getDrawScene();

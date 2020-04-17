@@ -51,7 +51,7 @@ public class Aggregation {
         SolverTSP solvertsp = new SolverTSP();
         int result_solver_tsp[] = solvertsp.getPathTSP(adjacency_matrix, location_list.size()+1);
 
-        // Mapping location_list with result_soler_tsp then return new ArrayList<Location> tour_path_tsp
+        // Mapping location_list with result_solver_tsp then return new ArrayList<Location> tour_path_tsp
         ArrayList<Location> location_path_tsp = new ArrayList<Location>();
 
         for(int i=0;i<result_solver_tsp.length;i++){

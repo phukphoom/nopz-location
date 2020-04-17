@@ -1,6 +1,7 @@
 package Models.Utilities;
 
 import Models.Sample.Location;
+import Models.Sample.Setting;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -97,5 +98,33 @@ public class FileWorker {
             dataOutputStream.writeDouble(firstReadLocation.get(i).getY());
         }
         dataOutputStream.close();
+    }
+
+    public static void writeSettings(String password, boolean isLock) {
+        try {
+            DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/settings.dat"));
+            dataOutputStream.writeBoolean(isLock);
+            dataOutputStream.writeUTF(password);
+            dataOutputStream.close();
+        }
+        catch (IOException exception) {
+        }
+    }
+    public static Setting readSettings() throws IOException {
+        DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/settings.dat"));
+        boolean isLock = dataInputStream.readBoolean();
+        String password = dataInputStream.readUTF();
+
+        return new Setting(password, isLock);
+    }
+    public static void writeSettings(Setting setting) {
+        try {
+            DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/settings.dat"));
+            dataOutputStream.writeBoolean(setting.isLock());
+            dataOutputStream.writeUTF(setting.getPassword());
+            dataOutputStream.close();
+        }
+        catch (IOException exception) {
+        }
     }
 }

@@ -1,12 +1,14 @@
 package Models.Screen;
 
 import Models.Sample.KNearest;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,22 +24,25 @@ public class KNearestMapDrawer extends MapDrawer {
     // Data Fields
     private double radius = 0.0f;
     private ChoiceBox choiceBox = new ChoiceBox();
-    private Stage kSelector = new Stage();
+    private Stage kSelectorStage = new Stage();
 
     // Constructor
     public KNearestMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
-        kSelector.setHeight(120);
-        kSelector.setWidth(300);
 
-        choiceBox.setPrefWidth(kSelector.getWidth());
-        choiceBox.setPrefHeight(kSelector.getHeight()/3);
+        kSelectorStage.setTitle("KSelector");
+        kSelectorStage.setResizable(false);
+        kSelectorStage.setAlwaysOnTop(true);
+        kSelectorStage.show();
 
         ArrayList<String> choices = new ArrayList<>();
         for (int i = 1; i <= this.getLocs().size(); i++) {
             choices.add(""+i);
         }
         choiceBox.getItems().addAll(choices);
+        if(!choices.isEmpty()){
+            choiceBox.setValue(choiceBox.getItems().get(0));
+        }
     }
 
     // Method
@@ -45,29 +50,41 @@ public class KNearestMapDrawer extends MapDrawer {
     public Parent getDrawScene() throws Exception {
         Pane mapPane = (Pane) super.getDrawScene();
 
-        VBox container = new VBox();
+        kSelectorStage.setWidth(250);
+        kSelectorStage.setHeight(120);
+        kSelectorStage.centerOnScreen();
+
+        VBox mainContainer = new VBox();
+        mainContainer.setAlignment(Pos.CENTER);
+        mainContainer.setSpacing(10);
+        mainContainer.setPadding(new Insets(10,10,10,10));
+
+        HBox inputContainer = new HBox();
+        inputContainer.setSpacing(10);
 
         Label label = new Label("กรุณาเลือกจำนวนร้านที่ต้องการทราบ");
         label.setAlignment(Pos.CENTER);
-        label.setPrefWidth(kSelector.getWidth());
-        label.setPrefHeight(kSelector.getHeight()/3);
+        label.setPrefWidth(kSelectorStage.getWidth());
+        label.setPrefHeight(kSelectorStage.getHeight()/3);
 
         Button okBtn = new Button("ตกลง");
-        okBtn.setPrefWidth(kSelector.getWidth());
-        okBtn.setPrefHeight(kSelector.getHeight()/3);
+        okBtn.setPrefWidth(kSelectorStage.getWidth()/2);
+        okBtn.setPrefHeight(kSelectorStage.getHeight()/3);
+
+        choiceBox.setPrefWidth(kSelectorStage.getWidth()/2);
+        choiceBox.setPrefHeight(kSelectorStage.getHeight()/2);
+
 
         Circle radiusOfInterested = new Circle(radius / this.getRATIO());
         radiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);
         radiusOfInterested.setCenterY(this.getMAP_HEIGHT() / 2);
         radiusOfInterested.setOpacity(0.3);
         radiusOfInterested.setFill(Color.GREEN);
-        container.getChildren().addAll(label, choiceBox, okBtn);
 
-        kSelector.setScene(new Scene(container));
-        kSelector.setAlwaysOnTop(true);
-        kSelector.setResizable(false);
-        kSelector.setTitle("KSelector");
-        kSelector.show();
+        inputContainer.getChildren().addAll(choiceBox, okBtn);
+        mainContainer.getChildren().addAll(label,inputContainer);
+
+        kSelectorStage.setScene(new Scene(mainContainer));
 
         okBtn.setOnAction(e->{
             if(Integer.parseInt((String) choiceBox.getValue()) > 0) {
@@ -78,7 +95,7 @@ public class KNearestMapDrawer extends MapDrawer {
         mapPane.getChildren().add(radiusOfInterested);
 
         this.getStage().setOnHidden(event->{
-            kSelector.close();
+            kSelectorStage.close();
         });
         return mapPane;
     }

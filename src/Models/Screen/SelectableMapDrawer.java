@@ -1,5 +1,7 @@
 package Models.Screen;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,10 +16,15 @@ public class SelectableMapDrawer extends MapDrawer {
 
     // Data Fields
     private double pickX, pickY;
+    private boolean isPicked = false;
+    private Stage confirmPickStage = new Stage();
 
     // Constructor
     public SelectableMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
+        confirmPickStage.setTitle("Confirm");
+        confirmPickStage.setResizable(false);
+        confirmPickStage.setAlwaysOnTop(true);
     }
 
     // Setter
@@ -35,35 +42,64 @@ public class SelectableMapDrawer extends MapDrawer {
     public double getPickY(){
         return this.pickY;
     }
+    public boolean isPicked(){
+        return this.isPicked;
+    }
+    public Stage getConfirmPickStage(){
+        return this.confirmPickStage;
+    }
 
 
     // Method
     @Override
     public Parent getDrawScene() throws Exception {
         Parent sc = super.getDrawScene();
-        sc.setOnMouseClicked(e->{
-            Stage confirmPickStage = new Stage();
-            Button okPick = new Button("ยืนยัน");
-            Button cancelPick = new Button("ยกเลิก");
-            VBox confirmPickScene = new VBox();
+        sc.setOnMouseClicked(eventClick->{
+
+            confirmPickStage.setHeight(120);
+            confirmPickStage.setWidth(250);
+
+            VBox confirmPickContainer = new VBox();
+            confirmPickContainer.setAlignment(Pos.CENTER);
+            confirmPickContainer.setSpacing(10);
+            confirmPickContainer.setPadding(new Insets(10,10,10,10));
             HBox btnContainer = new HBox();
+            btnContainer.setSpacing(10);
+
+            Label confirmLabel = new Label("ยืนยันการเลือก ?");
+            confirmLabel.setAlignment(Pos.CENTER);
+            confirmLabel.setPrefWidth(confirmPickStage.getWidth());
+            confirmLabel.setPrefHeight(confirmPickStage.getHeight()/2);
+
+            Button okPick = new Button("ยืนยัน");
+            okPick.setPrefWidth(confirmPickStage.getWidth()/2);
+            okPick.setPrefHeight(confirmPickStage.getHeight()/2);
+
+            Button cancelPick = new Button("ยกเลิก");
+            cancelPick.setPrefWidth(confirmPickStage.getWidth()/2);
+            cancelPick.setPrefHeight(confirmPickStage.getHeight()/2);
+
             btnContainer.getChildren().addAll(okPick, cancelPick);
-            Label detailDelete = new Label("ยืนยันการเลือก?");
-            confirmPickScene.getChildren().addAll(detailDelete, btnContainer);
-            confirmPickStage.setScene(new Scene(confirmPickScene));
+            confirmPickContainer.getChildren().addAll(confirmLabel, btnContainer);
+
+            confirmPickStage.setScene(new Scene(confirmPickContainer));
             confirmPickStage.show();
-            okPick.setOnAction(ei -> {
-                pickX = e.getX();
-                pickY = e.getY();
+            okPick.setOnAction(event -> {
+                pickX = eventClick.getX();
+                pickY = eventClick.getY();
                 pickX = (pickX - this.getMAP_WIDTH()/2) * this.getRATIO() + this.getUser_x();
                 pickY = (pickY - this.getMAP_HEIGHT()/2) * this.getRATIO() + this.getUser_y();
+
+                isPicked = true;
                 confirmPickStage.close();
                 this.getStage().close();
             });
-            cancelPick.setOnAction(ei -> {
+            cancelPick.setOnAction(event -> {
+                isPicked = false;
                 confirmPickStage.close();
             });
         });
+
         return sc;
     }
 }

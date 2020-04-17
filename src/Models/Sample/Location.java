@@ -40,8 +40,8 @@ public class Location implements Serializable {
     }
 
     // Method
-    public double distanceWith(Location loc) {
-        return Math.sqrt((loc.x - this.x) * (loc.x - this.x) + (loc.y - this.y) * (loc.y - this.y));
+    public double distanceWith(Location location) {
+        return Math.sqrt((location.x - this.x) * (location.x - this.x) + (location.y - this.y) * (location.y - this.y));
     }
     @Override
     public String toString() {
