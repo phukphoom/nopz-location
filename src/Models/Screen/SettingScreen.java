@@ -29,7 +29,6 @@ public class SettingScreen {
     public SettingScreen() throws IOException {
         stage = new Stage();
 
-
         container = new GridPane();
         container.setPadding(new Insets(10,10,10,10));
         container.setVgap(10);
@@ -77,18 +76,7 @@ public class SettingScreen {
         showPassword.setStyle("-fx-text-fill: #008887");
         GridPane.setConstraints(showPassword, 1, 5);
         passwordVisibleField.textProperty().bindBidirectional(passwordField.textProperty());
-        isLockCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-                if(newValue) {
-                    passwordField.setDisable(false);
-                    passwordVisibleField.setDisable(false);
-                } else {
-                    passwordField.setDisable(true);
-                    passwordVisibleField.setDisable(true);
-                }
-            }
-        });
+
 
         CheckBox showPasswordCheckBox = new CheckBox();
         passwordVisibleField.managedProperty().bind(showPasswordCheckBox.selectedProperty());
@@ -96,6 +84,23 @@ public class SettingScreen {
         passwordField.visibleProperty().bind(showPasswordCheckBox.selectedProperty().not());
         passwordVisibleField.visibleProperty().bind(showPasswordCheckBox.selectedProperty());
         GridPane.setConstraints(showPasswordCheckBox, 2, 5);
+        showPasswordCheckBox.setDisable(true);
+
+        isLockCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+                if(newValue) {
+                    passwordField.setDisable(false);
+                    passwordVisibleField.setDisable(false);
+                    showPasswordCheckBox.setDisable(false);
+                }
+                else {
+                    passwordField.setDisable(true);
+                    passwordVisibleField.setDisable(true);
+                    showPasswordCheckBox.setDisable(true);
+                }
+            }
+        });
 
         Button okBtn = new Button("บันทึก");
         okBtn.setOnMouseEntered(e->{
