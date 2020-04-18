@@ -39,7 +39,7 @@ public class MapDrawer {
         this.user_y = user_y;
         this.stage = new Stage();
 
-        mapImage.setImage(new Image(new FileInputStream("src/Views/resource/Map12000,8000.jpg"), MAP_WIDTH, MAP_HEIGHT, true, false));
+        mapImage.setImage(new Image(new FileInputStream("src/Views/resource/Image/Map12000,8000.jpg"), MAP_WIDTH, MAP_HEIGHT, true, false));
         mapImage.setScaleX(100/this.RATIO);
         mapImage.setScaleY(100/this.RATIO);
         mapImage.maxHeight(MAP_HEIGHT);
@@ -116,7 +116,7 @@ public class MapDrawer {
             relY = this.relUser(l.getY(), 'y');
 
             ImageView locMarker = new ImageView();
-            locMarker.setImage(new Image(new FileInputStream("src/Views/resource/location_marker.png")));
+            locMarker.setImage(new Image(new FileInputStream("src/Views/resource/Image/location_marker.png")));
             locMarker.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO) - 5);
             locMarker.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO) - 15);
             locMarker.setFitWidth(10);
@@ -132,7 +132,7 @@ public class MapDrawer {
         }
 
         ImageView userMarker = new ImageView();
-        userMarker.setImage(new Image(new FileInputStream("src/Views/resource/user-marker.png")));
+        userMarker.setImage(new Image(new FileInputStream("src/Views/resource/Image/user-marker.png")));
         userMarker.setFitWidth(15);
         userMarker.setFitHeight(15);
         userMarker.setX(MAP_WIDTH / 2 - 7.5);

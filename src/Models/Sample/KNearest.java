@@ -27,5 +27,4 @@ public class KNearest {
 
         return outPut.get(k-1).distanceWith(start);
     }
-
 }

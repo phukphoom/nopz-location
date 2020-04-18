@@ -58,7 +58,7 @@ public class NOPZ_LocationApp extends Application {
         mainContainer.setSpacing(10);
         mainContainer.setPadding(new Insets(10,10,10,10));
 
-        Label detailLogin = new Label("โปรดกรอก Password");
+        Label detailLogin = new Label("โปรดกรอก รหัสผ่าน");
         detailLogin.setAlignment(Pos.CENTER);
         detailLogin.setPrefWidth(300);
         detailLogin.setPrefHeight(150/3);

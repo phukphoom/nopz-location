@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import static javafx.scene.text.FontWeight.BOLD;
@@ -30,6 +31,10 @@ public class HomeController implements Initializable {
     private Label userPositionLabel;
     @FXML
     private Label editLabel;
+    @FXML
+    private Menu setting;
+    @FXML
+    private Menu about;
 
     // Constructor
     public HomeController() throws IOException {
@@ -42,6 +47,23 @@ public class HomeController implements Initializable {
     }
 
     // Event Handle
+    @FXML
+    private void handleSettingMenuClicked(){
+        try{
+            SettingScreen screen = new SettingScreen();
+            screen.getStage().show();
+        }
+        catch (Exception exception){
+
+        }
+    }
+    @FXML
+    private void handleAboutMenuClicked(){
+
+    }
+
+
+
     @FXML
     private void handleEditLabelEntered(MouseEvent event){
         this.editLabel.setFont(Font.font(null, BOLD, editLabel.getFont().getSize()));

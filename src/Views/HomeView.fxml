@@ -19,16 +19,21 @@
    <children>
       <MenuBar prefHeight="10.0" prefWidth="800.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="เครื่องมือ">
             <items>
-              <MenuItem mnemonicParsing="false" text="About Us" />
+              <MenuItem mnemonicParsing="false" text="ตั้งค่า" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="ช่วยเหลือ">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="เกี่ยวกับ" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <ImageView fitHeight="250.0" fitWidth="600.0" layoutX="100.0" layoutY="43.0">
          <image>
-            <Image url="@resource/kmitl_logo.png" />
+            <Image url="@resource/Image/kmitl_logo.png" />
          </image>
       </ImageView>
       <BorderPane layoutX="223.0" layoutY="386.0" prefHeight="200.0" prefWidth="354.0">
