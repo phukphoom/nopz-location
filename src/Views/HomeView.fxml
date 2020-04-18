@@ -19,12 +19,12 @@
    <children>
       <MenuBar prefHeight="10.0" prefWidth="800.0">
         <menus>
-          <Menu mnemonicParsing="false" text="เครื่องมือ">
+          <Menu fx:id="setting" onAction="#handleSettingMenuClicked" mnemonicParsing="false" text="เครื่องมือ">
             <items>
               <MenuItem mnemonicParsing="false" text="ตั้งค่า" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="ช่วยเหลือ">
+            <Menu fx:id="about" onAction="#handleAboutMenuClicked" mnemonicParsing="false" text="ช่วยเหลือ">
                <items>
                   <MenuItem mnemonicParsing="false" text="เกี่ยวกับ" />
                </items>

@@ -54,14 +54,12 @@ public class HomeController implements Initializable {
             screen.getStage().show();
         }
         catch (Exception exception){
-
         }
     }
     @FXML
     private void handleAboutMenuClicked(){
 
     }
-
 
 
     @FXML

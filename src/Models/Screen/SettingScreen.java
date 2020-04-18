@@ -41,7 +41,6 @@ public class SettingScreen {
         stage.setResizable(false);
         stage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/shield.png"))));
         stage.setTitle("Security setting");
-
     }
 
     public Stage getStage() throws FileNotFoundException {
