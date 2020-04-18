@@ -131,10 +131,12 @@ public class MapDrawer {
             mapPane.getChildren().addAll(locMarker, txt);
         }
 
-        Circle userMarker = new Circle();
-        userMarker.setRadius(3.0f);
-        userMarker.setCenterX(MAP_WIDTH / 2);
-        userMarker.setCenterY(MAP_HEIGHT / 2);
+        ImageView userMarker = new ImageView();
+        userMarker.setImage(new Image(new FileInputStream("src/Views/resource/user-marker.png")));
+        userMarker.setFitWidth(15);
+        userMarker.setFitHeight(15);
+        userMarker.setX(MAP_WIDTH / 2 - 7.5);
+        userMarker.setY(MAP_HEIGHT / 2 - 7.5);
         mapPane.getChildren().addAll(userMarker, ratioDisplay);
 
         return mapPane;

@@ -1,7 +1,9 @@
 package Models.Screen;
 
+import Models.Sample.MinMax;
 import Models.Utilities.FileWorker;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -20,8 +22,8 @@ public class MinMaxMapDrawer extends MapDrawer{
     // Constructor
     public MinMaxMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
-        minLocation = min();
-        maxLocation = max();
+        minLocation = MinMax.min();
+        maxLocation = MinMax.max();
         Location userLoc = FileWorker.readUserLocationFromFile();
         setUser_x(userLoc.getX()); setUser_y(userLoc.getY());
     }
@@ -50,55 +52,5 @@ public class MinMaxMapDrawer extends MapDrawer{
         mapPane.getChildren().add(minLine);
 
         return mapPane;
-    }
-    public Location min() {
-        double relX, relY;
-        ArrayList<Double> a = new ArrayList<>();
-        for (Location l : getLocs()) {
-            relX = this.relUser(l.getX(), 'x');
-            relY = this.relUser(l.getY(), 'y');
-            if(relX != 0 && relY != 0)
-                a.add(Math.sqrt((relX*relX) + (relY*relY)));
-            else if(relX == 0 && relY != 0)
-                a.add(Math.abs(relY));
-            else if(relX != 0 && relY == 0)
-                a.add(Math.abs(relX));
-            else
-                a.add(0.0);
-        }
-        double min = a.get(0);
-        int index = 0;
-        for (int i=0;i<a.size();i++) {
-            if(min>a.get(i)) {
-                min = a.get(i);
-                index = i;
-            }
-        }
-        return getLocs().get(index);
-    }
-    public Location max() {
-        double relX, relY;
-        ArrayList<Double> a = new ArrayList<>();
-        for (Location l : getLocs()) {
-            relX = this.relUser(l.getX(), 'x');
-            relY = this.relUser(l.getY(), 'y');
-            if(relX != 0 && relY != 0)
-                a.add(Math.sqrt((relX*relX) + (relY*relY)));
-            else if(relX == 0 && relY != 0)
-                a.add(Math.abs(relY));
-            else if(relX != 0 && relY == 0)
-                a.add(Math.abs(relX));
-            else
-                a.add(0.0);
-        }
-        double max = a.get(0);
-        int index = 0;
-        for (int i=0;i<a.size();i++) {
-            if(max<a.get(i)) {
-                max = a.get(i);
-                index = i;
-            }
-        }
-        return getLocs().get(index);
     }
 }

@@ -27,6 +27,7 @@ public class LocationManagement {
     private ArrayList<Location> locationList;
     private Stage locationListStage = new Stage();
     private ScrollPane locationListScroll = new ScrollPane();
+    private boolean sortBy = false; // false -> distance, true -> date
     double pickX, pickY;
 
 
@@ -56,6 +57,9 @@ public class LocationManagement {
     // Method
     private void updateLocationListScroll() throws IOException {
         locationList = FileWorker.readLocationListFromFile();
+        if(sortBy) {
+            locationList = FileWorker.readUserLocationFromFile().sortByDistanceWith(locationList);
+        }
 
         VBox locationListVbox = new VBox();
         locationListVbox.setPrefHeight(450);
@@ -67,8 +71,10 @@ public class LocationManagement {
             Label nameLocationLabel = new Label("ร้าน ["+ location.getName() + "]");
             nameLocationLabel.setPrefWidth(120);
 
-            Label positionLabel = new Label("อยู่ที่ตำแหน่ง" + " ( " + (int)location.getX() + " , " + (int)location.getY() + " ) ");
+            Label positionLabel = new Label("อยู่ที่ตำแหน่ง" + " ( " + (int)location.getX() + " , " + (int)location.getY() + ")");
+            Label distantLabel = new Label("ระยะห่าง = " + (int) location.distanceWith(FileWorker.readUserLocationFromFile()) + " กิโลเมตร");
             positionLabel.setPrefWidth(200);
+            distantLabel.setPrefWidth(200);
 
             Label deleteLocationLabel = new Label("ลบ");
             deleteLocationLabel.setTextFill(Color.RED);
@@ -151,10 +157,13 @@ public class LocationManagement {
 
             HBox locationGroup = new HBox();
             locationGroup.setPrefWidth(400);
-            locationGroup.setPrefHeight(40);
+            locationGroup.setPrefHeight(60);
             locationGroup.setPadding(new Insets(10,10,10,10));
             locationGroup.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            locationGroup.getChildren().addAll(nameLocationLabel, positionLabel,deleteLocationLabel);
+            VBox labelGroup = new VBox();
+            labelGroup.setAlignment(Pos.BASELINE_LEFT);
+            labelGroup.getChildren().addAll(positionLabel, distantLabel);
+            locationGroup.getChildren().addAll(nameLocationLabel, labelGroup,deleteLocationLabel);
             locationListVbox.getChildren().add(locationGroup);
         }
         locationListScroll.setContent(locationListVbox);
@@ -168,6 +177,34 @@ public class LocationManagement {
         mainContainer.setPrefHeight(locationListStage.getHeight());
         mainContainer.setSpacing(10);
         mainContainer.setPadding(new Insets(10,10,10,10));
+
+        HBox topContainer = new HBox();
+        topContainer.setSpacing(10);
+        topContainer.setPadding(new Insets(10, 10, 10, 10));
+        Label sortBy = new Label("จัดเรียงตามระยะทาง");
+        Label changeSortBy = new Label("เปลี่ยน");
+        changeSortBy.setTextFill(Color.BLUE);
+        topContainer.setAlignment(Pos.TOP_LEFT);
+        topContainer.getChildren().addAll(changeSortBy, sortBy);
+        changeSortBy.setOnMouseEntered(e->{
+            changeSortBy.setUnderline(true);
+        });
+        changeSortBy.setOnMouseExited(e->{
+            changeSortBy.setUnderline(false);
+        });
+        changeSortBy.setOnMouseClicked(e->{
+            if(this.sortBy) {
+                sortBy.setText("จัดเรียงตามวันที่");
+            } else {
+                sortBy.setText("จัดเรียงตามระยะทาง");
+            }
+            this.sortBy = !this.sortBy;
+            try {
+                this.updateLocationListScroll();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         HBox btnContainer = new HBox();
         btnContainer.setAlignment(Pos.CENTER);
@@ -237,6 +274,7 @@ public class LocationManagement {
 
                         try {
                             FileWorker.writeLocationInListToFile(pickX, pickY, name);
+                            pickX = 0.f; pickY = 0.f;
                             addLocationStage.close();
                             renderStage();
                         }
@@ -278,7 +316,7 @@ public class LocationManagement {
         });
 
         btnContainer.getChildren().addAll(addLocationBtn, exitBtn);
-        mainContainer.getChildren().addAll(locationListScroll, btnContainer);
+        mainContainer.getChildren().addAll(topContainer, locationListScroll, btnContainer);
 
         Scene scene = new Scene(mainContainer);
         this.locationListStage.setScene(scene);

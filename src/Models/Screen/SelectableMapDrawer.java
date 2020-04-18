@@ -58,7 +58,6 @@ public class SelectableMapDrawer extends MapDrawer {
     public Parent getDrawScene() throws Exception {
         Parent sc = super.getDrawScene();
         sc.setOnMouseClicked(eventClick->{
-
             VBox confirmPickContainer = new VBox();
             confirmPickContainer.setAlignment(Pos.CENTER);
             confirmPickContainer.setSpacing(10);

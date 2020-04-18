@@ -9,6 +9,6 @@ public class TestFileLoader {
         FileWorker.writeLocationInListToFile(14052, 1280,"node_3");
         FileWorker.writeLocationInListToFile(17152, 1500,"node_4");
         FileWorker.writeUserLocationToFile(16540,1600,"User");
-        FileWorker.writeSettings("1234",true);
+        FileWorker.writeSettings("1234",false);
     }
 }

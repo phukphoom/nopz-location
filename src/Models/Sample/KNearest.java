@@ -23,7 +23,7 @@ public class KNearest {
         for (int i = 0; i < k; i++) {
             outPut.add(locationList.get(i));
         }
-        System.out.println(outPut.get(k-1));
+//        System.out.println(outPut.get(k-1));
 
         return outPut.get(k-1).distanceWith(start);
     }

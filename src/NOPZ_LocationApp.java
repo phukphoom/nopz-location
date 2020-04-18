@@ -31,7 +31,7 @@ public class NOPZ_LocationApp extends Application {
         stage.setScene(homeScene);
         stage.setTitle("NOPZ Location  |  Home");
         stage.setResizable(false);
-        root.setDisable(true);
+        root.setDisable(FileWorker.readSettings().isLock());
         stage.show();
 
         if(root.isDisable() && FileWorker.readSettings().isLock()){
