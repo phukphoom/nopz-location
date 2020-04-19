@@ -10,11 +10,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import static javafx.scene.text.FontWeight.BOLD;
 import static javafx.scene.text.FontWeight.NORMAL;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -78,6 +81,7 @@ public class HomeController implements Initializable {
         try{
             SelectableMapDrawer mapDrawer = new SelectableMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Set User Location");
+            mapDrawer.getMapStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
             mapDrawer.getMapStage().show();
             mapDrawer.getMapStage().setOnHidden(stageEvent->{
                 mapDrawer.getConfirmPickStage().close();
@@ -115,6 +119,7 @@ public class HomeController implements Initializable {
         try{
             AggregationMapDrawer mapDrawer = new AggregationMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Aggregation");
+            mapDrawer.getStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
             mapDrawer.getMapStage().show();
         }
         catch(Exception exception){
@@ -136,6 +141,7 @@ public class HomeController implements Initializable {
         try{
             KNearestMapDrawer mapDrawer = new KNearestMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  KNearest");
+            mapDrawer.getMapStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
             if(FileWorker.readLocationListFromFile().size() <= 0) {
                 throw new Exception("มีร้านไม่เพียงพอ กรุณาเพิ่มร้านค้า!");
             }
@@ -154,6 +160,7 @@ public class HomeController implements Initializable {
         try{
             ApproximateMapDrawer mapDrawer = new ApproximateMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Approximate");
+            mapDrawer.getMapStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
             if(FileWorker.readLocationListFromFile().size() <= 0) {
                 throw new Exception("มีร้านไม่เพียงพอ กรุณาเพิ่มร้านค้า!");
             }
@@ -172,6 +179,7 @@ public class HomeController implements Initializable {
         try{
             MinMaxMapDrawer mapDrawer = new MinMaxMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  MinMax");
+            mapDrawer.getMapStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
             mapDrawer.getMapStage().show();
         }
         catch(Exception exception){

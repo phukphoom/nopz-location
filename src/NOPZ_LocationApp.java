@@ -8,12 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.fxml.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class NOPZ_LocationApp extends Application {
@@ -30,6 +33,7 @@ public class NOPZ_LocationApp extends Application {
 
         stage.setScene(homeScene);
         stage.setTitle("NOPZ Location  |  Home");
+        stage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
         stage.setResizable(false);
         root.setDisable(FileWorker.readSettings().isLock());
         stage.show();
@@ -46,9 +50,15 @@ public class NOPZ_LocationApp extends Application {
             }
         });
     }
-    public void login(Parent root, Stage mainStage){
+    public void login (Parent root, Stage mainStage){
         Stage loginStage = new Stage();
         loginStage.setTitle("Authentication");
+        try{
+            loginStage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
+        }
+        catch (Exception exception){
+
+        }
         loginStage.setWidth(300);
         loginStage.setHeight(150);
         loginStage.setResizable(false);

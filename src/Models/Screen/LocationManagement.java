@@ -13,12 +13,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -37,6 +40,7 @@ public class LocationManagement {
         this.locationListStage.setWidth(400);
         this.locationListStage.setHeight(500);
         this.locationListStage.setTitle("NOPZ Location  |  Shop Management");
+        this.locationListStage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
         this.locationListStage.setResizable(false);
 
         this.locationListScroll.setMaxHeight(400);
