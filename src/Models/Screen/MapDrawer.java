@@ -117,26 +117,26 @@ public class MapDrawer {
 
             ImageView locMarker = new ImageView();
             locMarker.setImage(new Image(new FileInputStream("src/Views/resource/Image/location_marker.png")));
-            locMarker.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO) - 5);
-            locMarker.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO) - 15);
-            locMarker.setFitWidth(10);
-            locMarker.setFitHeight(15);
+            locMarker.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO) - 15 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
+            locMarker.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO) - 40 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
+            locMarker.setFitWidth(30 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
+            locMarker.setFitHeight(40 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
 
             Text txt = new Text();
             txt.setText(l.getName() + "\n(" + (int)l.getX() + ", " + (int)l.getY() + ")");
             txt.setFill(Color.RED);
-            txt.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO + 20) - 5);
-            txt.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO + 20) - 7.5);
+            txt.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO + 20) - 15 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
+            txt.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO + 20) + 30);
 
             mapPane.getChildren().addAll(locMarker, txt);
         }
 
         ImageView userMarker = new ImageView();
         userMarker.setImage(new Image(new FileInputStream("src/Views/resource/Image/user-marker.png")));
-        userMarker.setFitWidth(15);
-        userMarker.setFitHeight(15);
-        userMarker.setX(MAP_WIDTH / 2 - 7.5);
-        userMarker.setY(MAP_HEIGHT / 2 - 7.5);
+        userMarker.setFitWidth(40 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
+        userMarker.setFitHeight(40 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
+        userMarker.setX(MAP_WIDTH / 2 - 20 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
+        userMarker.setY(MAP_HEIGHT / 2 - 40 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
         mapPane.getChildren().addAll(userMarker, ratioDisplay);
 
         return mapPane;

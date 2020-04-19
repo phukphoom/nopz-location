@@ -100,7 +100,7 @@ public class NOPZ_LocationApp extends Application {
                     loginStage.close();
                     root.setDisable(false);
                 } else {
-                    detailLogin.setText("รหัสผ่านไม่ถูกต้อง โปรดลองอีกครั้ง");
+                    detailLogin.setText("รหัสผ่านไม่ถูกต้อง! โปรดลองอีกครั้ง");
                     detailLogin.setTextFill(Color.RED);
                 }
             } catch (IOException exception) {

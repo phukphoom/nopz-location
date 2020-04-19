@@ -30,6 +30,7 @@ public class KNearestMapDrawer extends MapDrawer {
     private double radius = 0.0f;
     private ChoiceBox choiceBox = new ChoiceBox();
     private Stage kSelectorStage = new Stage();
+    private Circle radiusOfInterested = new Circle(radius / this.getRATIO());
 
     // Constructor
     public KNearestMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
@@ -50,12 +51,6 @@ public class KNearestMapDrawer extends MapDrawer {
             choiceBox.setValue(choiceBox.getItems().get(0));
             kSelectorStage.show();
         }
-    }
-
-    // Method
-    @Override
-    public Parent getDrawScene() throws Exception {
-        Pane mapPane = (Pane) super.getDrawScene();
 
         VBox mainContainer = new VBox();
         mainContainer.setAlignment(Pos.CENTER);
@@ -82,12 +77,6 @@ public class KNearestMapDrawer extends MapDrawer {
             e.printStackTrace();
         }
 
-        Circle radiusOfInterested = new Circle(radius / this.getRATIO());
-        radiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);
-        radiusOfInterested.setCenterY(this.getMAP_HEIGHT() / 2);
-        radiusOfInterested.setOpacity(0.3);
-        radiusOfInterested.setFill(Color.GREEN);
-
         inputContainer.getChildren().addAll(choiceBox, okBtn);
         mainContainer.getChildren().addAll(label,inputContainer);
 
@@ -99,7 +88,6 @@ public class KNearestMapDrawer extends MapDrawer {
                 radiusOfInterested.setRadius(radius / this.getRATIO());
             }
         });
-        mapPane.getChildren().add(radiusOfInterested);
 
         this.getStage().setOnHidden(event->{
             kSelectorStage.close();
@@ -110,6 +98,20 @@ public class KNearestMapDrawer extends MapDrawer {
                 getStage().close();
             }
         });
+    }
+
+    // Method
+    @Override
+    public Parent getDrawScene() throws Exception {
+        Pane mapPane = (Pane) super.getDrawScene();
+
+        radiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);
+        radiusOfInterested.setCenterY(this.getMAP_HEIGHT() / 2);
+        radiusOfInterested.setOpacity(0.3);
+        radiusOfInterested.setFill(Color.GREEN);
+        radiusOfInterested.setRadius(radius / this.getRATIO());
+
+        mapPane.getChildren().add(radiusOfInterested);
 
         return mapPane;
     }

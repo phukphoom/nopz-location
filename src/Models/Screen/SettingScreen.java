@@ -69,7 +69,8 @@ public class SettingScreen {
         GridPane.setConstraints(passwordField, 2,4);
         GridPane.setConstraints(passwordVisibleField, 2, 4);
 
-        //passwordVisibleField.setVisible(false);
+        passwordField.setText(this.setting.getPassword());
+        passwordVisibleField.setText(this.setting.getPassword());
         passwordField.setDisable(!this.setting.isLock());
         Label showPassword = new Label("แสดงรหัสผ่าน");
         showPassword.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
@@ -84,7 +85,7 @@ public class SettingScreen {
         passwordField.visibleProperty().bind(showPasswordCheckBox.selectedProperty().not());
         passwordVisibleField.visibleProperty().bind(showPasswordCheckBox.selectedProperty());
         GridPane.setConstraints(showPasswordCheckBox, 2, 5);
-        showPasswordCheckBox.setDisable(true);
+        showPasswordCheckBox.setDisable(false);
 
         isLockCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -110,8 +111,14 @@ public class SettingScreen {
             okBtn.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
         });
         okBtn.setOnAction(e->{
-            FileWorker.writeSettings(new Setting(!isLockCheckBox.isSelected() ? "" : passwordField.getText(), isLockCheckBox.isSelected()));
-            stage.close();
+            Setting setting = new Setting(!isLockCheckBox.isSelected() ? "" : passwordField.getText(), isLockCheckBox.isSelected());
+            if(setting.isPasswordSafe() || !isLockCheckBox.isSelected()) {
+                FileWorker.writeSettings(setting);
+                stage.close();
+            } else {
+                Alert alertBox = new Alert(Alert.AlertType.WARNING, "รหัสผ่านไม่ปลอดภัย!\nรหัสที่ปลอดภัยควรมีความยาวมากกว่า 8 ตัวอักษร\nไม่มีช่องว่าง และมีทั้งพิมพ์ใหญ่และพิมพ์ ตัวเลขและอักขระพิเศษ");
+                alertBox.showAndWait();
+            }
         });
         okBtn.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
         okBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
