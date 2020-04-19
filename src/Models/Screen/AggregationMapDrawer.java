@@ -6,8 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import Models.Sample.Location;
-import Models.Sample.Aggregation;
+import Models.Blueprint.Location;
+import Models.Calculation.Aggregation;
 
 import java.util.ArrayList;
 

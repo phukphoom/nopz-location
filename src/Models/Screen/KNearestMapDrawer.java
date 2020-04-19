@@ -1,6 +1,6 @@
 package Models.Screen;
 
-import Models.Sample.KNearest;
+import Models.Calculation.KNearest;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import Models.Sample.Location;
+import Models.Blueprint.Location;
 import javafx.stage.WindowEvent;
 
 import java.io.FileInputStream;

@@ -1,9 +1,8 @@
 package Controls;
 
-import Models.Sample.Setting;
 import Models.Screen.*;
 import Models.Utilities.FileWorker;
-import Models.Sample.Location;
+import Models.Blueprint.Location;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +14,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
-import static javafx.scene.text.FontWeight.BOLD;
-import static javafx.scene.text.FontWeight.NORMAL;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -131,7 +128,12 @@ public class HomeController implements Initializable {
     }
     @FXML
     private void handleAboutMenuClicked(){
-
+        try{
+            InstructionScreen screen = new InstructionScreen();
+            screen.getStage().show();
+        }
+        catch (Exception exception){
+        }
     }
 
 

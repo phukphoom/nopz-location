@@ -12,11 +12,10 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Models.Utilities.FileWorker;
-import Models.Sample.Location;
+import Models.Blueprint.Location;
 
 import java.io.FileInputStream;
 import java.io.IOException;

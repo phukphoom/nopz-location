@@ -1,4 +1,4 @@
-import Models.Sample.Setting;
+import Models.Blueprint.Setting;
 import Models.Utilities.FileWorker;
 import javafx.application.Application;
 import javafx.event.EventHandler;

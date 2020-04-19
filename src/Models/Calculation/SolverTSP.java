@@ -1,6 +1,6 @@
 /* This code contributed by PrinciRaj1992 form Medium*/
 /* Modified by Phukphoom Taphrae 62010609 */
-package Models.Sample;
+package Models.Calculation;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

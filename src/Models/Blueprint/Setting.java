@@ -1,4 +1,4 @@
-package Models.Sample;
+package Models.Blueprint;
 
 public class Setting {
 

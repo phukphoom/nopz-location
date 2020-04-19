@@ -1,4 +1,4 @@
-package Models.Sample;
+package Models.Blueprint;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,13 +1,12 @@
 package Models.Screen;
 
-import Models.Sample.Approximate;
-import Models.Sample.KNearest;
+import Models.Calculation.Approximate;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import Models.Sample.Location;
+import Models.Blueprint.Location;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;

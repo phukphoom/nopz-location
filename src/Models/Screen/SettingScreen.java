@@ -4,15 +4,13 @@ import Models.Utilities.FileWorker;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import Models.Sample.Setting;
+import Models.Blueprint.Setting;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,8 +41,6 @@ public class SettingScreen {
     }
 
     public Stage getStage() throws FileNotFoundException {
-
-
         Label title = new Label("ตั้งค่ารหัสผ่าน");
         title.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),40));
         title.setStyle("-fx-text-fill: #008887");

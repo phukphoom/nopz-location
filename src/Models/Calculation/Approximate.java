@@ -1,4 +1,6 @@
-package Models.Sample;
+package Models.Calculation;
+
+import Models.Blueprint.Location;
 
 import java.util.ArrayList;
 

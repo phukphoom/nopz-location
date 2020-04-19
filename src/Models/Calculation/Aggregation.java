@@ -1,5 +1,7 @@
 /* @author Phukphoom Taphrae 62010609*/
-package Models.Sample;
+package Models.Calculation;
+
+import Models.Blueprint.Location;
 
 import java.util.ArrayList;
 

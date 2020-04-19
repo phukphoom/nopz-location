@@ -1,5 +1,6 @@
-package Models.Sample;
+package Models.Calculation;
 
+import Models.Blueprint.Location;
 import Models.Utilities.FileWorker;
 
 import java.io.IOException;

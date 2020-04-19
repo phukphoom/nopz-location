@@ -1,7 +1,7 @@
 package Models.Utilities;
 
-import Models.Sample.Location;
-import Models.Sample.Setting;
+import Models.Blueprint.Location;
+import Models.Blueprint.Setting;
 import java.io.*;
 import java.util.ArrayList;
 

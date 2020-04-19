@@ -1,17 +1,14 @@
 package Models.Screen;
 
-import Models.Sample.MinMax;
+import Models.Calculation.MinMax;
 import Models.Utilities.FileWorker;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import Models.Sample.Location;
+import Models.Blueprint.Location;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class MinMaxMapDrawer extends MapDrawer{
 
