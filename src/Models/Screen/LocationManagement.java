@@ -16,11 +16,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -66,6 +69,7 @@ public class LocationManagement {
         }
 
         VBox locationListVbox = new VBox();
+
         locationListVbox.setPrefHeight(450);
 
         locationListVbox.setPrefWidth(350);
@@ -73,14 +77,23 @@ public class LocationManagement {
             int currentIndex = i;
             Location location = locationList.get(i);
             Label nameLocationLabel = new Label("ร้าน ["+ location.getName() + "]");
-            nameLocationLabel.setPrefWidth(120);
+            nameLocationLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+            nameLocationLabel.setStyle("-fx-text-fill: #008887");
+//            nameLocationLabel.setPrefWidth(120);
 
-            Label positionLabel = new Label("อยู่ที่ตำแหน่ง" + " ( " + (int)location.getX() + " , " + (int)location.getY() + ")");
-            Label distantLabel = new Label("ระยะห่าง = " + (int) location.distanceWith(FileWorker.readUserLocationFromFile()) + " กิโลเมตร");
+            Label positionLabel = new Label("  อยู่ที่ตำแหน่ง" + " ( " + (int)location.getX() + " , " + (int)location.getY() + ")");
+            positionLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Light ver 1.00.otf"),20));
+            positionLabel.setStyle("-fx-text-fill: #007467 ");
             positionLabel.setPrefWidth(200);
+
+            Label distantLabel = new Label("  ระยะห่าง = " + (int) location.distanceWith(FileWorker.readUserLocationFromFile()) + " เมตร");
+            distantLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Light ver 1.00.otf"),20));
+            distantLabel.setStyle("-fx-text-fill: #007467 ");
             distantLabel.setPrefWidth(200);
 
             Label deleteLocationLabel = new Label("ลบ");
+            deleteLocationLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+            deleteLocationLabel.setStyle("-fx-text-fill: #FF5733 ");
             deleteLocationLabel.setTextFill(Color.RED);
             deleteLocationLabel.setPrefWidth(30);
             deleteLocationLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -113,11 +126,23 @@ public class LocationManagement {
                     btnContainer.setSpacing(10);
 
                     Label confirmLabel = new Label("ยืนยันการลบร้านค้า?");
+                    try {
+                        confirmLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    confirmLabel.setStyle("-fx-text-fill: #008887");
                     confirmLabel.setAlignment(Pos.CENTER);
                     confirmLabel.setPrefWidth(confirmDeleteStage.getWidth());
                     confirmLabel.setPrefHeight(confirmDeleteStage.getHeight()/2);
 
                     Button okDelete = new Button("ยืนยัน");
+                    okDelete.setStyle("-fx-background-color:#56c596; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
+                    try {
+                        okDelete.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     okDelete.setPrefWidth(confirmDeleteStage.getWidth()/2);
                     okDelete.setPrefHeight(confirmDeleteStage.getHeight()/2);
                     okDelete.setOnAction(new EventHandler<ActionEvent>() {
@@ -135,6 +160,12 @@ public class LocationManagement {
                     });
 
                     Button cancelDelete = new Button("ยกเลิก");
+                    cancelDelete.setStyle("-fx-background-color:#DB3535; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
+                    try {
+                        cancelDelete.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     cancelDelete.setPrefWidth(confirmDeleteStage.getWidth()/2);
                     cancelDelete.setPrefHeight(confirmDeleteStage.getHeight()/2);
                     cancelDelete.setOnAction(new EventHandler<ActionEvent>() {
@@ -166,6 +197,7 @@ public class LocationManagement {
             locationGroup.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             VBox labelGroup = new VBox();
             labelGroup.setAlignment(Pos.BASELINE_LEFT);
+
             labelGroup.getChildren().addAll(positionLabel, distantLabel);
             locationGroup.getChildren().addAll(nameLocationLabel, labelGroup,deleteLocationLabel);
             locationListVbox.getChildren().add(locationGroup);
@@ -185,8 +217,14 @@ public class LocationManagement {
         HBox topContainer = new HBox();
         topContainer.setSpacing(10);
         topContainer.setPadding(new Insets(10, 10, 10, 10));
+
         Label sortBy = new Label("จัดเรียงตามระยะทาง");
+        sortBy.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+        sortBy.setStyle("-fx-text-fill: #777777");
+
         Label changeSortBy = new Label("เปลี่ยน");
+        changeSortBy.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+        changeSortBy.setStyle("-fx-text-fill: #FF5733");
         changeSortBy.setTextFill(Color.BLUE);
         topContainer.setAlignment(Pos.TOP_LEFT);
         topContainer.getChildren().addAll(changeSortBy, sortBy);
@@ -215,6 +253,12 @@ public class LocationManagement {
         btnContainer.setSpacing(10);
 
         Button addLocationBtn = new Button("เพิ่มร้านค้า");
+        addLocationBtn.setStyle("-fx-background-color:#008B8A; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            addLocationBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         addLocationBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -231,11 +275,30 @@ public class LocationManagement {
                 btnContainer.setAlignment(Pos.CENTER);
                 btnContainer.setSpacing(10);
 
-                FormField locationName = new FormField("ชื่อร้าน", 100, false);
+                Label Text1 = new Label("ชื่อร้าน");
+                try {
+                    Text1.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),25));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Text1.setStyle("-fx-text-fill: #008887");
+                FormField locationName = new FormField("", 100, false);
 
                 Label pickedLocationLabel = new Label("( ? , ? )");
+                try {
+                    pickedLocationLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                pickedLocationLabel.setStyle("-fx-text-fill: #008887");
 
                 Button pickLocation = new Button("เลือกที่อยู่ร้าน");
+                pickLocation.setStyle("-fx-background-color:#00BECF; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+                try {
+                    pickLocation.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 pickLocation.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
@@ -271,6 +334,12 @@ public class LocationManagement {
                 });
 
                 Button okBtn = new Button("ตกลง");
+                okBtn.setStyle("-fx-background-color:#56c596; -fx-background-radius: 8px; -fx-text-fill: #ffffff;");
+                try {
+                    okBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 okBtn.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
@@ -289,6 +358,12 @@ public class LocationManagement {
                 });
 
                 Button cancelBtn = new Button("ปิด");
+                cancelBtn.setStyle("-fx-background-color:#FF6464 ; -fx-background-radius: 8px; -fx-text-fill: #ffffff;");
+                try {
+                    cancelBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
@@ -297,7 +372,7 @@ public class LocationManagement {
                 });
 
                 btnContainer.getChildren().addAll(okBtn, cancelBtn);
-                mainContainer.getChildren().addAll(locationName.getNode(), pickedLocationLabel, pickLocation, btnContainer);
+                mainContainer.getChildren().addAll(Text1,locationName.getNode(), pickedLocationLabel, pickLocation, btnContainer);
 
                 addLocationStage.setScene(new Scene(mainContainer));
                 addLocationStage.show();
@@ -312,6 +387,12 @@ public class LocationManagement {
         });
 
         Button exitBtn = new Button("ออก");
+        exitBtn.setStyle("-fx-background-color:#00BECF; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            exitBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         exitBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {

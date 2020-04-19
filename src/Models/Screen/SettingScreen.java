@@ -107,13 +107,13 @@ public class SettingScreen {
             okBtn.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
         });
         okBtn.setOnMouseExited(e->{
-            okBtn.setStyle("-fx-background-color:#13C300; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
+            okBtn.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
         });
         okBtn.setOnAction(e->{
             FileWorker.writeSettings(new Setting(!isLockCheckBox.isSelected() ? "" : passwordField.getText(), isLockCheckBox.isSelected()));
             stage.close();
         });
-        okBtn.setStyle("-fx-background-color:#13C300; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
+        okBtn.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
         okBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
 
 
@@ -125,9 +125,9 @@ public class SettingScreen {
             cancelBtn.setStyle("-fx-background-color:#990000; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
         });
         cancelBtn.setOnMouseExited(e->{
-            cancelBtn.setStyle("-fx-background-color:#C50000; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
+            cancelBtn.setStyle("-fx-background-color:#DB3535; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
         });
-        cancelBtn.setStyle("-fx-background-color:#C50000; -fx-background-radius: 30px; -fx-text-fill: #ffffff ");
+        cancelBtn.setStyle("-fx-background-color:#DB3535; -fx-background-radius: 30px; -fx-text-fill: #ffffff ");
         cancelBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
 //        cancelBtn.setFont();
 

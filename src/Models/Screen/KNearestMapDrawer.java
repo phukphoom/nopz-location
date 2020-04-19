@@ -14,10 +14,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import Models.Sample.Location;
 import javafx.stage.WindowEvent;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -42,6 +45,7 @@ public class KNearestMapDrawer extends MapDrawer {
             choices.add(""+i);
         }
         choiceBox.getItems().addAll(choices);
+        choiceBox.setStyle("-fx-background-color:#56c596; -fx-background-radius: 8px; -fx-text-fill: #ffffff;");
         if(!choices.isEmpty()){
             choiceBox.setValue(choiceBox.getItems().get(0));
             kSelectorStage.show();
@@ -62,9 +66,21 @@ public class KNearestMapDrawer extends MapDrawer {
         inputContainer.setSpacing(10);
 
         Label label = new Label("กรุณาเลือกจำนวนร้านที่ต้องการทราบ");
+        try {
+            label.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        label.setStyle("-fx-text-fill: #008887");
         label.setAlignment(Pos.CENTER);
 
         Button okBtn = new Button("ตกลง");
+        okBtn.setStyle("-fx-background-color:#00BECF; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            okBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         Circle radiusOfInterested = new Circle(radius / this.getRATIO());
         radiusOfInterested.setCenterX(this.getMAP_WIDTH() / 2);

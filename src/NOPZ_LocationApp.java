@@ -11,12 +11,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.fxml.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class NOPZ_LocationApp extends Application {
@@ -50,7 +52,7 @@ public class NOPZ_LocationApp extends Application {
             }
         });
     }
-    public void login (Parent root, Stage mainStage){
+    public void login (Parent root, Stage mainStage) throws FileNotFoundException {
         Stage loginStage = new Stage();
         loginStage.setTitle("Authentication");
         try{
@@ -69,6 +71,8 @@ public class NOPZ_LocationApp extends Application {
         mainContainer.setPadding(new Insets(10,10,10,10));
 
         Label detailLogin = new Label("โปรดกรอก รหัสผ่าน");
+        detailLogin.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+        detailLogin.setStyle("-fx-text-fill: #008887");
         detailLogin.setAlignment(Pos.CENTER);
         detailLogin.setPrefWidth(300);
         detailLogin.setPrefHeight(150/3);
@@ -77,6 +81,12 @@ public class NOPZ_LocationApp extends Application {
         passwordField.setAlignment(Pos.CENTER);
 
         Button loginBtn = new Button("เข้าสู่ระบบ");
+        loginBtn.setStyle("-fx-background-color:#00BECF; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            loginBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         loginBtn.setPrefWidth(80);
         loginBtn.setPrefHeight(150/3);
 
@@ -100,7 +110,11 @@ public class NOPZ_LocationApp extends Application {
         loginStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
-                login(root,mainStage);
+                try {
+                    login(root,mainStage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

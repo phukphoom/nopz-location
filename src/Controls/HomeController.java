@@ -1,5 +1,6 @@
 package Controls;
 
+import Models.Sample.Setting;
 import Models.Screen.*;
 import Models.Utilities.FileWorker;
 import Models.Sample.Location;
@@ -8,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
@@ -18,6 +20,7 @@ import static javafx.scene.text.FontWeight.NORMAL;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,8 +41,20 @@ public class HomeController implements Initializable {
     private Menu setting;
     @FXML
     private Menu about;
-
+    @FXML
+    private Button manageButton;
+    @FXML
+    private Button mode1Button;
+    @FXML
+    private Button mode2Button;
+    @FXML
+    private Button mode3Button;
+    @FXML
+    private Button mode4Button;
+    @FXML
+    private Button exitButton;
     // Constructor
+
     public HomeController() throws IOException {
     }
 
@@ -47,6 +62,61 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.userPositionLabel.setText("พิกัดปัจจุบันของคุณ  :  ( " + (int)this.user.getX() + " , " + (int)this.user.getY() + " )");
+        userPositionLabel.setStyle("-fx-text-fill: #008887");
+        try {
+            userPositionLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        editLabel.setStyle("-fx-text-fill: #FF5733");
+        try {
+            editLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        manageButton.setStyle("-fx-background-color:#008B8A; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
+        try {
+            manageButton.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),30));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        mode2Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        mode3Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        mode4Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        exitButton.setStyle("-fx-background-color:#DB3535; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        try {
+            exitButton.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     // Event Handle
@@ -67,12 +137,14 @@ public class HomeController implements Initializable {
 
     @FXML
     private void handleEditLabelEntered(MouseEvent event){
-        this.editLabel.setFont(Font.font(null, BOLD, editLabel.getFont().getSize()));
+        //this.editLabel.setFont(Font.font(null, BOLD, editLabel.getFont().getSize()));
+        this.editLabel.setStyle("-fx-text-fill: #C70039 ");
         this.editLabel.setUnderline(true);
     }
     @FXML
     private void handleEditLabelExited(MouseEvent event){
-        this.editLabel.setFont(Font.font(null, NORMAL, editLabel.getFont().getSize()));
+        //this.editLabel.setFont(Font.font(null, NORMAL, editLabel.getFont().getSize()));
+        this.editLabel.setStyle("-fx-text-fill: #FF5733");
         this.editLabel.setUnderline(false);
     }
     @FXML
@@ -194,4 +266,41 @@ public class HomeController implements Initializable {
         System.out.println(">> Exit Application");
         System.exit(0);
     }
+
+//    @FXML
+//    private void handleButton1MouseEnter(ActionEvent event) {
+//        mode1Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+//    }
+//    @FXML
+//    private void handleButton1MouseExit(ActionEvent event) {
+//        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+//    }
+//
+//    @FXML
+//    private void handleButton2MouseEnter(ActionEvent event) {
+//        mode2Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+//    }
+//    @FXML
+//    private void handleButton2MouseExit(ActionEvent event) {
+//        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+//    }
+//
+//    @FXML
+//    private void handleButton3MouseEnter(ActionEvent event) {
+//        mode3Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+//    }
+//    @FXML
+//    private void handleButton3MouseExit(ActionEvent event) {
+//        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
+//    }
+//
+//    @FXML
+//    private void handleButton4MouseEnter(ActionEvent event) {
+//        mode4Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
+//    }
+//    @FXML
+//    private void handleButton4MouseExit(ActionEvent event) {
+//        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
+//    }
+
 }
