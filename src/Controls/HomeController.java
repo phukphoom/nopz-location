@@ -14,6 +14,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -191,10 +192,14 @@ public class HomeController implements Initializable {
     private void handleMode1ButtonClicked(ActionEvent event){
         System.out.println("  -> Button Mode1 Clicked");
         try{
-            AggregationMapDrawer mapDrawer = new AggregationMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
+            MiniGameMapDrawer mapDrawer = new MiniGameMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Aggregation");
             mapDrawer.getStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
-            mapDrawer.getMapStage().show();
+            Stage mdStage = mapDrawer.getStage();
+            mdStage.setOnHidden(e-> {
+                mapDrawer.getAnimTimer().stop();
+            });
+            mdStage.show();
         }
         catch(Exception exception){
             System.out.println(exception);
