@@ -9,8 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SelectableMapDrawer extends MapDrawer {
@@ -66,15 +69,33 @@ public class SelectableMapDrawer extends MapDrawer {
             btnContainer.setSpacing(10);
 
             Label confirmLabel = new Label("ยืนยันการเลือก ?");
+            try {
+                confirmLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            confirmLabel.setStyle("-fx-text-fill: #007467 ");
             confirmLabel.setAlignment(Pos.CENTER);
             confirmLabel.setPrefWidth(confirmPickStage.getWidth());
             confirmLabel.setPrefHeight(confirmPickStage.getHeight()/2);
 
             Button okPick = new Button("ยืนยัน");
+            okPick.setStyle("-fx-background-color:#56c596; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
+            try {
+                okPick.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             okPick.setPrefWidth(confirmPickStage.getWidth()/2);
             okPick.setPrefHeight(confirmPickStage.getHeight()/2);
 
             Button cancelPick = new Button("ยกเลิก");
+            cancelPick.setStyle("-fx-background-color:#FF5733; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
+            try {
+                cancelPick.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             cancelPick.setPrefWidth(confirmPickStage.getWidth()/2);
             cancelPick.setPrefHeight(confirmPickStage.getHeight()/2);
 
