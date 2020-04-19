@@ -46,14 +46,14 @@ public class FileWorker {
         System.out.println(">> Read : " + returnLocation + " From " + "UserLocation.dat");
         return returnLocation;
     }
-    public static void writeLocationInListToFile(double x, double y, String name) throws IOException {
+    public static void writeLocationInListToFile(double x, double y, String name) throws Exception {
         try {
             DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/LocationData.dat"));
             ///// Validate /////
             ArrayList<Location> locs = readLocationListFromFile();
             Location thisLoc = new Location(x, y, name);
             locs = thisLoc.sortByDistanceWith(locs);
-            if(thisLoc.distanceWith(locs.get(0)) <= 100.0f) {
+            if(thisLoc.distanceWith(locs.get(0)) <= 1000.0f) {
                 throw new Exception("Location is too close.");
             }
             ////////////////////
@@ -74,9 +74,6 @@ public class FileWorker {
             dataOutputStream.writeDouble(y);
 
             dataOutputStream.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         System.out.println(">> Write :: " + name + " , " + x + " , "  + y + " To " + "LocationData.dat");
     }
