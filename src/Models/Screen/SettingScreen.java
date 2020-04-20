@@ -1,12 +1,16 @@
 package Models.Screen;
 
+import Models.Blueprint.Location;
 import Models.Utilities.FileWorker;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -23,6 +27,10 @@ public class SettingScreen {
     private Scene scene;
     private GridPane container;
     private VBox button;
+    private Location user = FileWorker.readUserLocationFromFile();
+
+    private double MAP_HEIGHT = 750.f, MAP_WIDTH = 1125.f;
+    private double RATIO = 10.0f;
 
     public SettingScreen() throws IOException {
         stage = new Stage();
@@ -132,14 +140,54 @@ public class SettingScreen {
         });
         cancelBtn.setStyle("-fx-background-color:#DB3535; -fx-background-radius: 30px; -fx-text-fill: #ffffff ");
         cancelBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
-//        cancelBtn.setFont();
+
+        Button easterEggBtn = new Button("เล่นเกม");
+        easterEggBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+        easterEggBtn.setStyle("-fx-background-color: transparent; -fx-background-radius: 30px; -fx-text-fill: transparent; -fx-min-width: 60px");
+        GridPane.setConstraints(easterEggBtn, 3, 6);
+        easterEggBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(passwordField.getText().compareTo("minigame") == 0) {
+                    easterEggBtn.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff; -fx-min-width: 60px");
+                }
+            }
+        });
+        easterEggBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                easterEggBtn.setStyle("-fx-background-color: transparent; -fx-background-radius: 30px; -fx-text-fill: transparent; -fx-min-width: 60px");
+            }
+        });
+        easterEggBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(passwordField.getText().compareTo("minigame") == 0) {
+                    try{
+                        MiniGameMapDrawer mapDrawer = null;
+                        mapDrawer = new MiniGameMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, user.getX(), user.getY());
+                        mapDrawer.getMapStage().setTitle("NOPZ Location  |  Aggregation");
+                        mapDrawer.getStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
+                        Stage mdStage = mapDrawer.getStage();
+                        MiniGameMapDrawer finalMapDrawer = mapDrawer;
+                        mdStage.setOnHidden(e-> {
+                            finalMapDrawer.getAnimTimer().stop();
+                        });
+                        mdStage.show();
+                    }
+                    catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                }
+            }
+        });
 
         GridPane.setConstraints(okBtn, 2, 6);
         GridPane.setConstraints(cancelBtn, 2, 7);
         //button.getChildren().addAll(okBtn,cancelBtn);
         //GridPane.setConstraints(button,2,5);
         container.getChildren().addAll(title,isLock, isLockCheckBox, passwordLabel, passwordField, passwordVisibleField,
-                 showPasswordCheckBox,showPassword,okBtn,cancelBtn);
+                 showPasswordCheckBox,showPassword,okBtn,cancelBtn, easterEggBtn);
         return this.stage;
     }
 }
