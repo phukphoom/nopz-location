@@ -28,15 +28,19 @@ public class MapDrawer {
     private ArrayList<Location> locs = FileWorker.readLocationListFromFile();
     private ImageView mapImage = new ImageView();
     private Stage stage;
+    private Scene sc;
+    private BorderPane bp = new BorderPane();
 
     // Constructor
     public MapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
+        this.sc = new Scene(bp, MAP_WIDTH, MAP_HEIGHT);
         this.MAP_HEIGHT = MAP_HEIGHT;
         this.MAP_WIDTH = MAP_WIDTH;
         this.RATIO = RATIO;
         this.user_x = user_x;
         this.user_y = user_y;
         this.stage = new Stage();
+        this.stage.setScene(sc);
 
         mapImage.setImage(new Image(new FileInputStream("src/Views/resource/Image/Map12000,8000.jpg"), MAP_WIDTH, MAP_HEIGHT, true, false));
         mapImage.setScaleX(100/this.RATIO);
@@ -141,10 +145,8 @@ public class MapDrawer {
         return mapPane;
     }
     public Stage getMapStage() throws Exception {
-        BorderPane bp = new BorderPane();
         bp.setCenter(this.getDrawScene());
 
-        Scene sc = new Scene(bp, MAP_WIDTH, MAP_HEIGHT);
         sc.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent scrollEvent) {
@@ -153,32 +155,37 @@ public class MapDrawer {
                     RATIO = Math.abs(RATIO + 0.05 * -deltaY);
                     if(RATIO < 10) RATIO = 10;
                     if(RATIO > 100) RATIO = 100;
-                    try {
-                        setLocs(locs);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    setMAP_HEIGHT(MAP_HEIGHT);
-                    setMAP_WIDTH(MAP_WIDTH);
-                    setRATIO(RATIO);
-                    setUser_x(user_x);
-                    setUser_y(user_y);
-                    mapImage.setScaleX(100/RATIO);
-                    mapImage.setScaleY(100/RATIO);
-
-                    mapImage.setX(-user_x/RATIO);
-                    mapImage.setY(-user_y/RATIO);
-
-                    try {
-                        Node mapSc = getDrawScene();
-                        bp.setCenter(mapSc);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    updateMap();
                 }
             }});
-        this.stage.setScene(sc);
+
+        this.updateMap();
         this.stage.setResizable(false);
         return this.stage;
+    }
+
+    protected void updateMap() {
+        try {
+            setLocs(locs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setMAP_HEIGHT(MAP_HEIGHT);
+        setMAP_WIDTH(MAP_WIDTH);
+        setRATIO(RATIO);
+        setUser_x(user_x);
+        setUser_y(user_y);
+        mapImage.setScaleX(100/RATIO);
+        mapImage.setScaleY(100/RATIO);
+
+        mapImage.setX(-user_x/RATIO);
+        mapImage.setY(-user_y/RATIO);
+
+        try {
+            Node mapSc = getDrawScene();
+            bp.setCenter(mapSc);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
