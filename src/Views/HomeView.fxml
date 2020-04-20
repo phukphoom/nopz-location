@@ -37,6 +37,13 @@
             <Image url="@resource/Image/Icon.png" />
          </image>
       </ImageView>
+      <HBox layoutX="245.0" layoutY="317.0" prefHeight="30.0" prefWidth="310.0">
+         <children>
+            <Label fx:id="userPositionLabel" contentDisplay="CENTER" prefHeight="30.0" prefWidth="272.0" text="พิกัดปํจจุบันของคุณ : ( user_x,  user_y ) " textAlignment="CENTER">
+            </Label>
+            <Label fx:id="editLabel" alignment="CENTER_RIGHT" onMouseClicked="#handleEditLabelClicked" onMouseEntered="#handleEditLabelEntered" onMouseExited="#handleEditLabelExited" prefHeight="30.0" prefWidth="37.0" text="แก้ไข" textAlignment="CENTER" textFill="#3d03fc" />
+         </children>
+      </HBox>
       <BorderPane layoutX="223.0" layoutY="348.0" prefHeight="239.0" prefWidth="354.0">
          <top>
             <Button fx:id="manageButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleManageButtonClicked" prefHeight="58.0" prefWidth="278.0" text="จัดการตำเเหน่งร้าน" BorderPane.alignment="CENTER">
@@ -78,12 +85,5 @@
             <Insets />
          </opaqueInsets>
       </BorderPane>
-      <HBox layoutX="245.0" layoutY="317.0" prefHeight="30.0" prefWidth="310.0">
-         <children>
-            <Label fx:id="userPositionLabel" contentDisplay="CENTER" prefHeight="30.0" prefWidth="272.0" text="พิกัดปํจจุบันของคุณ : ( user_x,  user_y ) " textAlignment="CENTER">
-            </Label>
-            <Label fx:id="editLabel" alignment="CENTER_RIGHT" onMouseClicked="#handleEditLabelClicked" onMouseEntered="#handleEditLabelEntered" onMouseExited="#handleEditLabelExited" prefHeight="30.0" prefWidth="37.0" text="แก้ไข" textAlignment="CENTER" textFill="#3d03fc" />
-         </children>
-      </HBox>
    </children>
 </AnchorPane>

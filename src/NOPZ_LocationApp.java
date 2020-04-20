@@ -1,5 +1,6 @@
 import Models.Blueprint.Setting;
 import Models.Utilities.FileWorker;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -7,7 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -23,24 +23,31 @@ import java.io.IOException;
 
 public class NOPZ_LocationApp extends Application {
 
-    // Method
+    // Main
     public static void main(String[] args) {
         launch(args);
     }
 
+    // Start
     @Override
     public void start(Stage stage) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getResource("Views/HomeView.fxml"));
         Scene homeScene = new Scene(root, 800, 600);
 
         stage.setScene(homeScene);
         stage.setTitle("NOPZ Location  |  Home");
-        stage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
         stage.setResizable(false);
-        root.setDisable(FileWorker.readSettings().isLock());
+        try{
+            stage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
+        }
+        catch (FileNotFoundException fileNotFoundException){
+            System.out.println(fileNotFoundException);
+        }
         stage.show();
-
-        if(root.isDisable() && FileWorker.readSettings().isLock()){
+//------------------------------------- << continue
+        root.setDisable(FileWorker.readSettings().isLock());
+        if(root.isDisable()){
             login(root, stage);
         }
 
@@ -52,18 +59,22 @@ public class NOPZ_LocationApp extends Application {
             }
         });
     }
-    public void login (Parent root, Stage mainStage) throws FileNotFoundException {
+
+    // Login
+    public void login (Parent root, Stage mainStage){
+
         Stage loginStage = new Stage();
         loginStage.setTitle("Authentication");
+        loginStage.setResizable(false);
+        loginStage.setWidth(300);
+        loginStage.setHeight(150);
         try{
             loginStage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
         }
-        catch (Exception exception){
-
+        catch (FileNotFoundException fileNotFoundException){
+            System.out.println(fileNotFoundException);
         }
-        loginStage.setWidth(300);
-        loginStage.setHeight(150);
-        loginStage.setResizable(false);
+
 
         VBox mainContainer = new VBox();
         mainContainer.setAlignment(Pos.CENTER);
@@ -71,7 +82,12 @@ public class NOPZ_LocationApp extends Application {
         mainContainer.setPadding(new Insets(10,10,10,10));
 
         Label detailLogin = new Label("โปรดกรอก รหัสผ่าน");
-        detailLogin.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+        try{
+            detailLogin.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+        }
+        catch(FileNotFoundException fileNotFoundException){
+            System.out.println(fileNotFoundException);
+        }
         detailLogin.setStyle("-fx-text-fill: #008887");
         detailLogin.setAlignment(Pos.CENTER);
         detailLogin.setPrefWidth(300);
@@ -110,11 +126,7 @@ public class NOPZ_LocationApp extends Application {
         loginStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
-                try {
-                    login(root,mainStage);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                login(root,mainStage);
             }
         });
 
