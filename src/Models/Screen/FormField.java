@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class FormField {
@@ -55,5 +56,12 @@ public class FormField {
         });
         formContainer.getChildren().addAll(label, txtField);
         return formContainer;
+    }
+    public void setPromptText(String text){
+        this.txtField.setPromptText(text);
+        this.txtField.setAlignment(Pos.CENTER);
+    }
+    public void setFont(Font font){
+        this.txtField.setFont(font);
     }
 }

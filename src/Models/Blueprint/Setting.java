@@ -20,6 +20,7 @@ public class Setting {
         return isLock;
     }
 
+    // Method
     public boolean isPasswordSafe() {
         String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
         return this.password.matches(pattern);

@@ -31,42 +31,41 @@ public class Location implements Serializable {
 
     // Getter
     public double getX() {
-        return x;
+        return this.x;
     }
     public double getY() {
-        return y;
+        return this.y;
     }
     public String getName() {
-        return name;
+        return this.name;
     }
 
     // Method
     public double distanceWith(Location location) {
         return Math.sqrt((location.x - this.x) * (location.x - this.x) + (location.y - this.y) * (location.y - this.y));
     }
-
-    public ArrayList<Location> sortByDistanceWith(ArrayList<Location> locs) {
+    public ArrayList<Location> sortByDistanceWith(ArrayList<Location> locationList) {
         Location spair;
         ArrayList<Location> outPut = new ArrayList<Location>();
 
-        for (int j = 0; j < locs.size(); j++) {
-            for (int i = 0; i < locs.size()-1; i++) {
-                if(locs.get(i).distanceWith(this)>locs.get(i+1).distanceWith(this)){
-                    spair = locs.get(i);
-                    locs.set(i, locs.get(i+1));
-                    locs.set(i+1, spair);
+        for (int j = 0; j < locationList.size(); j++) {
+            for (int i = 0; i < locationList.size()-1; i++) {
+                if(locationList.get(i).distanceWith(this)>locationList.get(i+1).distanceWith(this)){
+                    spair = locationList.get(i);
+                    locationList.set(i, locationList.get(i+1));
+                    locationList.set(i+1, spair);
                 }
             }
         }
 
-        for (int i = 0; i < locs.size(); i++) {
-            outPut.add(locs.get(i));
+        for (int i = 0; i < locationList.size(); i++) {
+            outPut.add(locationList.get(i));
         }
-        System.out.println(outPut);
+        System.out.println("sortByDistanceWith => Output : " + outPut);
         return outPut;
     }
     @Override
     public String toString() {
-        return "Location{" + "x=" + x + ", y=" + y + ", name='" + name + "\'" + "}";
+        return "Location{" + "x=" + this.x + ", y=" + this.y + ", name='" + this.name + "\'" + "}";
     }
 }

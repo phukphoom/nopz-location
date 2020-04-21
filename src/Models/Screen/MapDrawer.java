@@ -108,7 +108,8 @@ public class MapDrawer {
     }
     public Parent getDrawScene() throws Exception {
         Pane mapPane = new Pane();
-        Label ratioDisplay = new Label("อัตราส่วน 1:" + (int) this.getRATIO());
+        Label ratioDisplay = new Label("อัตราส่วน [ 1 : " + (int) this.getRATIO() + " ]");
+        ratioDisplay.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
         ratioDisplay.setPadding(new Insets(10,10,10,10));
         ratioDisplay.setTextFill(Color.GRAY);
         ratioDisplay.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
@@ -128,9 +129,10 @@ public class MapDrawer {
             locMarker.setFitHeight(40 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
 
             Text txt = new Text();
-            txt.setText(l.getName() + "\n(" + (int)l.getX() + ", " + (int)l.getY() + ")");
+            txt.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+            txt.setText(l.getName() + "\n( " + (int)l.getX() + " , " + (int)l.getY() + " )");
             txt.setFill(Color.RED);
-            txt.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO + 20) - 15 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO)));
+            txt.setX((this.MAP_WIDTH / 2) - (relX / this.RATIO + 20) - (15 * (75 / (this.RATIO > 70 ? 80 : 150 - this.RATIO))) -25);
             txt.setY((this.MAP_HEIGHT / 2) - (relY / this.RATIO + 20) + 30);
 
             mapPane.getChildren().addAll(locMarker, txt);

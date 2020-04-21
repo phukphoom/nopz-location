@@ -8,7 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import Models.Blueprint.Location;
 import Models.Calculation.Aggregation;
+import javafx.scene.text.Font;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class AggregationMapDrawer extends MapDrawer {
@@ -19,9 +21,10 @@ public class AggregationMapDrawer extends MapDrawer {
     // Constructor
     public AggregationMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws Exception {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
-        tspSolved = Aggregation.findShortestTravelingRoute(new Location(getUser_x(), getUser_y(), "user"), this.getLocs());
+        tspSolved = Aggregation.findShortestTravelingRoute( this.getLocs(), new Location(getUser_x(), getUser_y(), "user"));
         Location userLoc = FileWorker.readUserLocationFromFile();
-        setUser_x(userLoc.getX()); setUser_y(userLoc.getY());
+        setUser_x(userLoc.getX());
+        setUser_y(userLoc.getY());
     }
 
     // Setter
@@ -46,12 +49,16 @@ public class AggregationMapDrawer extends MapDrawer {
             line.setStroke(Color.GREEN);
             line.setStrokeWidth(2.0);
             line.setOpacity(0.5);
+
             Label number = new Label("" + (i + 1));
+
             number.setTextFill(Color.ORANGE);
             number.setTranslateX((getMAP_WIDTH() / 2) - (relXi / getRATIO()) - 10);
             number.setTranslateY((getMAP_HEIGHT() / 2) - (relYi / getRATIO()));
-            mapPane.getChildren().add(number);
-            mapPane.getChildren().add(line);
+            number.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
+            number.setTextFill(Color.BLUE);
+            number.setTranslateX((getMAP_WIDTH() / 2) - (relXi / getRATIO()) +10);
+            number.setTranslateY((getMAP_HEIGHT() / 2) - (relYi / getRATIO()) -5);
         }
         return mapPane;
     }

@@ -20,7 +20,7 @@ public class MinMaxMapDrawer extends MapDrawer{
     private Location maxLocation;
 
     // Constructor
-    public MinMaxMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
+    public MinMaxMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws Exception {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
         minLocation = MinMax.min();
         maxLocation = MinMax.max();
@@ -41,6 +41,9 @@ public class MinMaxMapDrawer extends MapDrawer{
                 getMAP_WIDTH() / 2, getMAP_HEIGHT() / 2);
         maxLine.setFill(Color.ORANGE);
         maxLine.setStroke(Color.ORANGE);
+        maxLine.setFill(Color.RED);
+        maxLine.setStroke(Color.RED);
+        maxLine.setStrokeWidth(2.0);
         maxLine.setOpacity(0.5);
         maxLine.setStrokeWidth(4.f);
         mapPane.getChildren().add(maxLine);
@@ -55,6 +58,7 @@ public class MinMaxMapDrawer extends MapDrawer{
                 (getMAP_WIDTH() / 2), (getMAP_HEIGHT() / 2));
         minLine.setFill(Color.GREEN);
         minLine.setStroke(Color.GREEN);
+        minLine.setStrokeWidth(2.0);
         minLine.setOpacity(0.5);
         minLine.setStrokeWidth(4.f);
         mapPane.getChildren().add(minLine);

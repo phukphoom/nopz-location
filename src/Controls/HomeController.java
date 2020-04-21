@@ -12,9 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -28,10 +27,9 @@ import java.util.ResourceBundle;
 public class HomeController implements Initializable {
 
     // Data Fields
-    private Location user = FileWorker.readUserLocationFromFile();
-
     private double MAP_HEIGHT = 750.f, MAP_WIDTH = 1125.f;
     private double RATIO = 10.0f;
+    private Location user = FileWorker.readUserLocationFromFile();
 
     @FXML
     private Label userPositionLabel;
@@ -40,7 +38,7 @@ public class HomeController implements Initializable {
     @FXML
     private Menu setting;
     @FXML
-    private Menu about;
+    private Menu instruction;
     @FXML
     private Button manageButton;
     @FXML
@@ -53,114 +51,134 @@ public class HomeController implements Initializable {
     private Button mode4Button;
     @FXML
     private Button exitButton;
-    // Constructor
 
-    public HomeController() throws IOException {
+    // Constructor
+    public HomeController() throws Exception {
     }
 
     // Method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.initStyle();
         this.userPositionLabel.setText("พิกัดปัจจุบันของคุณ  :  ( " + (int)this.user.getX() + " , " + (int)this.user.getY() + " )");
-        userPositionLabel.setStyle("-fx-text-fill: #008887");
-        try {
-            userPositionLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    }
+    private void initStyle(){
 
-        editLabel.setStyle("-fx-text-fill: #FF5733");
+        // init userPositionLabel
         try {
-            editLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            this.userPositionLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
         }
+        catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+        this.userPositionLabel.setStyle("-fx-text-fill: #008887");
 
-        manageButton.setStyle("-fx-background-color:#008B8A; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
+        // init editLabel
         try {
-            manageButton.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),30));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            this.editLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
         }
+        catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+        this.editLabel.setStyle("-fx-text-fill: #FF5733");
 
-        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        // init manageButton
         try {
-            mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            this.manageButton.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),30));
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
         }
+        this.manageButton.setStyle("-fx-background-color:#008B8A; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
 
-        mode2Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        // init mode1Button
         try {
-            mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            this.mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
         }
+        catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+        this.mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
 
-        mode3Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        // init mode2Button
         try {
-            mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            this.mode2Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
         }
+        catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+        this.mode2Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
 
-        mode4Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        // init mode3Button
         try {
-            mode1Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            this.mode3Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
         }
+        catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+        this.mode3Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
 
-        exitButton.setStyle("-fx-background-color:#DB3535; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+        // init mode4Button
         try {
-            exitButton.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            this.mode4Button.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
         }
+        catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+        this.mode4Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+
+        // init exitButton
+        try {
+            this.exitButton.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
+        }
+        catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+        this.exitButton.setStyle("-fx-background-color:#DB3535; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
     }
 
     // Event Handle
+    // ==> All Menu
     @FXML
     private void handleSettingMenuClicked(){
         try{
             SettingScreen screen = new SettingScreen();
             screen.getStage().show();
         }
-        catch (Exception exception){
+        catch (IOException ioException){
+            ioException.printStackTrace();
         }
     }
     @FXML
-    private void handleAboutMenuClicked(){
+    private void handleInstructionMenuClicked(){
         try{
             InstructionScreen screen = new InstructionScreen();
             screen.getStage().show();
         }
-        catch (Exception exception){
+        catch (IOException ioException){
+            ioException.printStackTrace();
         }
     }
 
-
+    // ==> editLabel
     @FXML
     private void handleEditLabelEntered(MouseEvent event){
-        //this.editLabel.setFont(Font.font(null, BOLD, editLabel.getFont().getSize()));
         this.editLabel.setStyle("-fx-text-fill: #C70039 ");
         this.editLabel.setUnderline(true);
     }
     @FXML
     private void handleEditLabelExited(MouseEvent event){
-        //this.editLabel.setFont(Font.font(null, NORMAL, editLabel.getFont().getSize()));
         this.editLabel.setStyle("-fx-text-fill: #FF5733");
         this.editLabel.setUnderline(false);
     }
     @FXML
     private void handleEditLabelClicked(MouseEvent event){
-        System.out.println("  -> Label edit Clicked");
+        System.out.println("  >>> Label edit Clicked");
         try{
             SelectableMapDrawer mapDrawer = new SelectableMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Set User Location");
             mapDrawer.getMapStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
-            mapDrawer.getMapStage().show();
-            mapDrawer.getMapStage().setOnHidden(stageEvent->{
+
+            mapDrawer.getMapStage().setOnHidden(mapEvent->{
                 mapDrawer.getConfirmPickStage().close();
                 try{
                     if(mapDrawer.isPicked()){
@@ -170,148 +188,220 @@ public class HomeController implements Initializable {
                     }
                 }
                 catch (Exception exception){
-                    System.out.println(exception);
+                    exception.printStackTrace();
                 }
             });
+
+            mapDrawer.getMapStage().show();
         }
         catch(Exception exception){
-            System.out.println(exception);
+            exception.printStackTrace();
         }
     }
 
+    // ==> manageButton
+    @FXML
+    private void handleManageButtonMouseEntered(MouseEvent event) {
+        this.manageButton.setStyle("-fx-background-color:#006666; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
+    }
+    @FXML
+    private void handleManageButtonMouseExited(MouseEvent event) {
+        this.manageButton.setStyle("-fx-background-color:#008B8A; -fx-background-radius: 20px; -fx-text-fill: #ffffff;");
+    }
     @FXML
     private void handleManageButtonClicked(ActionEvent event){
-        System.out.println("  -> Button Manage Clicked");
+        System.out.println("  >>> Button Manage Clicked");
         try{
             LocationManagement locationManagement = new LocationManagement();
         }
         catch(Exception exception){
-            System.out.println(exception);
+            exception.printStackTrace();
         }
     }
 
+    // ==> mode1Button
+    @FXML
+    private void handleMode1ButtonMouseEntered(MouseEvent event) {
+        this.mode1Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
+    @FXML
+    private void handleMode1ButtonMouseExited(MouseEvent event) {
+       this.mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
     @FXML
     private void handleMode1ButtonClicked(ActionEvent event){
-        System.out.println("  -> Button Mode1 Clicked");
+        System.out.println("  >>> Button Mode1 Clicked");
         try{
             AggregationMapDrawer mapDrawer = new AggregationMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Aggregation");
             mapDrawer.getStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
-            Stage mdStage = mapDrawer.getStage();
+            mapDrawer.getStage().show();
+
+//            Stage mdStage = mapDrawer.getStage();
 //            for mini game
 //
 //            mdStage.setOnHidden(e-> {
 //                mapDrawer.getAnimTimer().stop();
 //            });
-            mdStage.show();
+//            mdStage.show();
         }
         catch(Exception exception){
-            System.out.println(exception);
+            exception.printStackTrace();
+            Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
+            alertBox.setHeaderText(null);
+
+
+            Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            try{
+                alertstage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
+                ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/error.png"))));
+                alertImage.setFitWidth(50);
+                alertImage.setFitHeight(50);
+                alertBox.setGraphic(alertImage);
+            }
+            catch (Exception sub_exception){
+            }
+
             if(exception.getMessage()=="Vertex is lees than 3 nodes"){
-                Alert alertBox = new Alert(Alert.AlertType.ERROR,"จำนวนร้านค้า ไม่เพียงพอต่อการคำนวณเส้นทาง");
-                alertBox.showAndWait();
+                alertBox.setContentText("จำนวนร้านค้าไม่เพียงพอต่อการคำนวน !");
             }
             else{
-                Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
-                alertBox.showAndWait();
+                alertBox.setContentText(exception.getMessage());
             }
+            alertBox.showAndWait();
         }
     }
 
+    // ==> mode2Button
+    @FXML
+    private void handleMode2ButtonMouseEntered(MouseEvent event) {
+        this.mode2Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
+    @FXML
+    private void handleMode2ButtonMouseExited(MouseEvent event) {
+        this.mode2Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
     @FXML
     private void handleMode2ButtonClicked(ActionEvent event){
-        System.out.println("  -> Button Mode2 Clicked");
+        System.out.println("  >>> Button Mode2 Clicked");
         try{
+            if(FileWorker.readLocationListFromFile().size() <= 0) {
+                throw new Exception("รายการร้านค้าว่างเปล่า กรุณาเพิ่มร้านค้า !");
+            }
             KNearestMapDrawer mapDrawer = new KNearestMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  KNearest");
             mapDrawer.getMapStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
-            if(FileWorker.readLocationListFromFile().size() <= 0) {
-                throw new Exception("มีร้านไม่เพียงพอ กรุณาเพิ่มร้านค้า!");
-            }
             mapDrawer.getMapStage().show();
         }
         catch(Exception exception){
-            System.out.println(exception);
-            Alert alertBox = new Alert(Alert.AlertType.ERROR, exception.getMessage());
+            exception.printStackTrace();
+            Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
+            alertBox.setHeaderText(null);
+            Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            try{
+                alertstage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
+                ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/error.png"))));
+                alertImage.setFitWidth(50);
+                alertImage.setFitHeight(50);
+                alertBox.setGraphic(alertImage);
+            }
+            catch (Exception sub_exception){
+            }
             alertBox.showAndWait();
         }
     }
 
+    // ==> mode3Button
+    @FXML
+    private void handleMode3ButtonMouseEntered(MouseEvent event) {
+        this.mode3Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
+    @FXML
+    private void handleMode3ButtonMouseExited(MouseEvent event) {
+        this.mode3Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
     @FXML
     private void handleMode3ButtonClicked(ActionEvent event){
-        System.out.println("  -> Button Mode3 Clicked");
+        System.out.println("  >>> Button Mode3 Clicked");
         try{
+            if(FileWorker.readLocationListFromFile().size() <= 0) {
+                throw new Exception("รายการร้านค้าว่างเปล่า กรุณาเพิ่มร้านค้า !");
+            }
             ApproximateMapDrawer mapDrawer = new ApproximateMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Approximate");
             mapDrawer.getMapStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
-            if(FileWorker.readLocationListFromFile().size() <= 0) {
-                throw new Exception("มีร้านไม่เพียงพอ กรุณาเพิ่มร้านค้า!");
-            }
             mapDrawer.getMapStage().show();
         }
         catch(Exception exception){
+            exception.printStackTrace();
             Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
+            alertBox.setHeaderText(null);
+            Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            try{
+                alertstage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
+                ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/error.png"))));
+                alertImage.setFitWidth(50);
+                alertImage.setFitHeight(50);
+                alertBox.setGraphic(alertImage);
+            }
+            catch (Exception sub_exception){
+            }
             alertBox.showAndWait();
-            System.out.println(exception);
         }
     }
 
+    // ==> mode4Button
+    @FXML
+    private void handleMode4ButtonMouseEntered(MouseEvent event) {
+        this.mode4Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
+    @FXML
+    private void handleMode4ButtonMouseExited(MouseEvent event) {
+        this.mode4Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
     @FXML
     private void handleMode4ButtonClicked(ActionEvent event){
-        System.out.println("  -> Button Mode4 Clicked");
+        System.out.println("  >>> Button Mode4 Clicked");
         try{
+            if(FileWorker.readLocationListFromFile().size() <= 0) {
+                throw new Exception("รายการร้านค้าว่างเปล่า กรุณาเพิ่มร้านค้า !");
+            }
+
             MinMaxMapDrawer mapDrawer = new MinMaxMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, this.user.getX(), this.user.getY());
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  MinMax");
             mapDrawer.getMapStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
             mapDrawer.getMapStage().show();
         }
         catch(Exception exception){
+            exception.printStackTrace();
             Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
+            alertBox.setHeaderText(null);
+            Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            try{
+                alertstage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
+                ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/error.png"))));
+                alertImage.setFitWidth(50);
+                alertImage.setFitHeight(50);
+                alertBox.setGraphic(alertImage);
+            }
+            catch (Exception sub_exception){
+            }
             alertBox.showAndWait();
-            System.out.println(exception);
         }
     }
 
+    // ==> exitButton
+    @FXML
+    private void handleExitButtonMouseEntered(MouseEvent event) {
+        this.exitButton.setStyle("-fx-background-color:#990000; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
+    @FXML
+    private void handleExitButtonMouseExited(MouseEvent event) {
+        this.exitButton.setStyle("-fx-background-color:#DB3535; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
+    }
     @FXML
     private void handleExitButtonClicked(ActionEvent event) {
         System.out.println(">> Exit Application");
         System.exit(0);
     }
-
-//    @FXML
-//    private void handleButton1MouseEnter(ActionEvent event) {
-//        mode1Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
-//    }
-//    @FXML
-//    private void handleButton1MouseExit(ActionEvent event) {
-//        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
-//    }
-//
-//    @FXML
-//    private void handleButton2MouseEnter(ActionEvent event) {
-//        mode2Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
-//    }
-//    @FXML
-//    private void handleButton2MouseExit(ActionEvent event) {
-//        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
-//    }
-//
-//    @FXML
-//    private void handleButton3MouseEnter(ActionEvent event) {
-//        mode3Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 10px; -fx-text-fill: #ffffff;");
-//    }
-//    @FXML
-//    private void handleButton3MouseExit(ActionEvent event) {
-//        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
-//    }
-//
-//    @FXML
-//    private void handleButton4MouseEnter(ActionEvent event) {
-//        mode4Button.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
-//    }
-//    @FXML
-//    private void handleButton4MouseExit(ActionEvent event) {
-//        mode1Button.setStyle("-fx-background-color:#56c596; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
-//    }
-
 }

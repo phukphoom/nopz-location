@@ -49,14 +49,17 @@ public class FileWorker {
     public static void writeLocationInListToFile(double x, double y, String name) throws Exception {
         try {
             DataInputStream dataInputStream = new DataInputStream(new FileInputStream("./data/LocationData.dat"));
-            ///// Validate /////
+
+            // Validate location
             ArrayList<Location> locs = readLocationListFromFile();
             Location thisLoc = new Location(x, y, name);
             locs = thisLoc.sortByDistanceWith(locs);
-            if(thisLoc.distanceWith(locs.get(0)) <= 1000.0f) {
-                throw new Exception("Location is too close.");
+            if(locs.size() != 0){
+                if(thisLoc.distanceWith(locs.get(0)) <= 1000.0f) {
+                    throw new Exception("Location is too close");
+                }
             }
-            ////////////////////
+
             if(dataInputStream.available() >= 0) {
                 DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/LocationData.dat", true));
                 dataOutputStream.writeUTF(name);
@@ -107,6 +110,16 @@ public class FileWorker {
         dataOutputStream.close();
     }
 
+    public static void writeSettings(Setting setting) {
+        try {
+            DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/settings.dat"));
+            dataOutputStream.writeBoolean(setting.isLock());
+            dataOutputStream.writeUTF(setting.getPassword());
+            dataOutputStream.close();
+        }
+        catch (IOException exception) {
+        }
+    }
     public static void writeSettings(String password, boolean isLock) {
         try {
             DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/settings.dat"));
@@ -123,15 +136,5 @@ public class FileWorker {
         String password = dataInputStream.readUTF();
 
         return new Setting(password, isLock);
-    }
-    public static void writeSettings(Setting setting) {
-        try {
-            DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("./data/settings.dat"));
-            dataOutputStream.writeBoolean(setting.isLock());
-            dataOutputStream.writeUTF(setting.getPassword());
-            dataOutputStream.close();
-        }
-        catch (IOException exception) {
-        }
     }
 }

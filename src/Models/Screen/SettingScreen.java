@@ -33,19 +33,19 @@ public class SettingScreen {
     private double RATIO = 10.0f;
 
     public SettingScreen() throws IOException {
-        stage = new Stage();
 
         container = new GridPane();
         container.setPadding(new Insets(10,10,10,10));
         container.setVgap(10);
         container.setHgap(10);
-        container.setStyle("-fx-background-color: #ffffff;");
 
         scene = new Scene(container, 380,250);
-        stage.setScene(scene);
-        stage.setResizable(false);
+
+        stage = new Stage();
         stage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/shield.png"))));
-        stage.setTitle("Security setting");
+        stage.setTitle("Security Setting");
+        stage.setResizable(false);
+        stage.setScene(scene);
     }
 
     public Stage getStage() throws FileNotFoundException {
@@ -89,7 +89,7 @@ public class SettingScreen {
         passwordField.visibleProperty().bind(showPasswordCheckBox.selectedProperty().not());
         passwordVisibleField.visibleProperty().bind(showPasswordCheckBox.selectedProperty());
         GridPane.setConstraints(showPasswordCheckBox, 2, 5);
-        showPasswordCheckBox.setDisable(false);
+        showPasswordCheckBox.setDisable(true);
 
         isLockCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override

@@ -8,14 +8,22 @@ import java.util.ArrayList;
 
 public class MinMax {
 
-    public MinMax() throws IOException {
+    // Static Method
+    private static double relUser(double diff, char axis) throws IOException {
+        Location user = FileWorker.readUserLocationFromFile();
+        if(axis == 'x') {
+            return user.getX() - diff;
+        }
+        else{
+            return user.getY() - diff;
+        }
     }
-
     public static Location max() throws IOException {
+        ArrayList<Location> locationList = FileWorker.readLocationListFromFile();
         double relX, relY;
-        ArrayList<Location> locs = FileWorker.readLocationListFromFile();
+
         ArrayList<Double> a = new ArrayList<>();
-        for (Location l : locs) {
+        for (Location l : locationList) {
             relX = relUser(l.getX(), 'x');
             relY = relUser(l.getY(), 'y');
             if(relX != 0 && relY != 0)
@@ -35,14 +43,14 @@ public class MinMax {
                 index = i;
             }
         }
-        return locs.get(index);
+        return locationList.get(index);
     }
-
     public static Location min() throws IOException {
+        ArrayList<Location> locationList = FileWorker.readLocationListFromFile();
         double relX, relY;
-        ArrayList<Location> locs = FileWorker.readLocationListFromFile();
+
         ArrayList<Double> a = new ArrayList<>();
-        for (Location l : locs) {
+        for (Location l : locationList) {
             relX = relUser(l.getX(), 'x');
             relY = relUser(l.getY(), 'y');
             if(relX != 0 && relY != 0)
@@ -62,15 +70,6 @@ public class MinMax {
                 index = i;
             }
         }
-        return locs.get(index);
-    }
-
-    private static double relUser(double diff, char axis) throws IOException {
-        Location user = FileWorker.readUserLocationFromFile();
-        if(axis == 'x') {
-            return user.getX() - diff;
-        } else {
-            return user.getY() - diff;
-        }
+        return locationList.get(index);
     }
 }

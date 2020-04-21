@@ -25,9 +25,9 @@
               <MenuItem mnemonicParsing="false" text="ตั้งค่า" />
             </items>
           </Menu>
-            <Menu fx:id="about" mnemonicParsing="false" onAction="#handleAboutMenuClicked" text="ช่วยเหลือ">
+            <Menu fx:id="instruction" mnemonicParsing="false" onAction="#handleInstructionMenuClicked" text="ช่วยเหลือ">
                <items>
-                  <MenuItem mnemonicParsing="false" text="เกี่ยวกับ" />
+                  <MenuItem mnemonicParsing="false" text="คู่มือ" />
                </items>
             </Menu>
         </menus>
@@ -37,15 +37,22 @@
             <Image url="@resource/Image/Icon.png" />
          </image>
       </ImageView>
+      <HBox layoutX="223.0" layoutY="317.0" prefHeight="30.0" prefWidth="354.0">
+         <children>
+            <Label fx:id="userPositionLabel" contentDisplay="CENTER" prefHeight="30.0" prefWidth="306.0" text="พิกัดปํจจุบันของคุณ : ( user_x,  user_y ) " textAlignment="CENTER">
+            </Label>
+            <Label fx:id="editLabel" alignment="CENTER_RIGHT" onMouseClicked="#handleEditLabelClicked" onMouseEntered="#handleEditLabelEntered" onMouseExited="#handleEditLabelExited" prefHeight="30.0" prefWidth="37.0" text="แก้ไข" textAlignment="CENTER" textFill="#3d03fc" />
+         </children>
+      </HBox>
       <BorderPane layoutX="223.0" layoutY="348.0" prefHeight="239.0" prefWidth="354.0">
          <top>
-            <Button fx:id="manageButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleManageButtonClicked" prefHeight="58.0" prefWidth="278.0" text="จัดการตำเเหน่งร้าน" BorderPane.alignment="CENTER">
+            <Button fx:id="manageButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleManageButtonClicked" onMouseEntered="#handleManageButtonMouseEntered" onMouseExited="#handleManageButtonMouseExited" prefHeight="58.0" prefWidth="278.0" text="จัดการตำเเหน่งร้าน" BorderPane.alignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font></Button>
          </top>
          <bottom>
-            <Button fx:id="exitButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleExitButtonClicked" prefHeight="30.0" prefWidth="136.0" text="ออกจากระบบ" BorderPane.alignment="CENTER">
+            <Button fx:id="exitButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleExitButtonClicked" onMouseEntered="#handleExitButtonMouseEntered" onMouseExited="#handleExitButtonMouseExited" prefHeight="30.0" prefWidth="136.0" text="ออกจากระบบ" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets />
                </BorderPane.margin></Button>
@@ -61,10 +68,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Button fx:id="mode1Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode1ButtonClicked" prefHeight="81.0" prefWidth="158.0" text="Aggregation" />
-                  <Button fx:id="mode2Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode2ButtonClicked" prefHeight="30.0" prefWidth="100.0" text="KNearest" GridPane.columnIndex="1" />
-                  <Button fx:id="mode3Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode3ButtonClicked" prefHeight="30.0" prefWidth="100.0" text="Approxinate" GridPane.rowIndex="1" />
-                  <Button fx:id="mode4Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode4ButtonClicked" prefHeight="30.0" prefWidth="101.0" text="MinMax" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="mode1Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode1ButtonClicked" onMouseEntered="#handleMode1ButtonMouseEntered" onMouseExited="#handleMode1ButtonMouseExited" prefHeight="81.0" prefWidth="158.0" text="Aggregation" />
+                  <Button fx:id="mode2Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode2ButtonClicked" onMouseEntered="#handleMode2ButtonMouseEntered" onMouseExited="#handleMode2ButtonMouseExited" prefHeight="30.0" prefWidth="100.0" text="KNearest" GridPane.columnIndex="1" />
+                  <Button fx:id="mode3Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode3ButtonClicked" onMouseEntered="#handleMode3ButtonMouseEntered" onMouseExited="#handleMode3ButtonMouseExited" prefHeight="30.0" prefWidth="100.0" text="Approxinate" GridPane.rowIndex="1" />
+                  <Button fx:id="mode4Button" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMode4ButtonClicked" onMouseEntered="#handleMode4ButtonMouseEntered" onMouseExited="#handleMode4ButtonMouseExited" prefHeight="30.0" prefWidth="101.0" text="MinMax" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -78,12 +85,5 @@
             <Insets />
          </opaqueInsets>
       </BorderPane>
-      <HBox layoutX="245.0" layoutY="317.0" prefHeight="30.0" prefWidth="310.0">
-         <children>
-            <Label fx:id="userPositionLabel" contentDisplay="CENTER" prefHeight="30.0" prefWidth="272.0" text="พิกัดปํจจุบันของคุณ : ( user_x,  user_y ) " textAlignment="CENTER">
-            </Label>
-            <Label fx:id="editLabel" alignment="CENTER_RIGHT" onMouseClicked="#handleEditLabelClicked" onMouseEntered="#handleEditLabelEntered" onMouseExited="#handleEditLabelExited" prefHeight="30.0" prefWidth="37.0" text="แก้ไข" textAlignment="CENTER" textFill="#3d03fc" />
-         </children>
-      </HBox>
    </children>
 </AnchorPane>
