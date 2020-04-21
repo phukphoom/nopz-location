@@ -19,7 +19,7 @@ public class InstructionScreen {
         ScrollPane scrollPane = new ScrollPane();
         VBox container = new VBox();
         ImageView instructionImage = new ImageView();
-        instructionImage.setImage(new Image(new FileInputStream("src/Views/resource/Image/prayuth.jpg")));
+        instructionImage.setImage(new Image(new FileInputStream("src/Views/resource/Image/instruction.png")));
         scrollPane.setContent(instructionImage);
 
         container.getChildren().add(scrollPane);
