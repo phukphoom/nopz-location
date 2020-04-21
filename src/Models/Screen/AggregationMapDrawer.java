@@ -47,7 +47,7 @@ public class AggregationMapDrawer extends MapDrawer {
             line.setStrokeWidth(2.0);
             line.setOpacity(0.5);
             Label number = new Label("" + (i + 1));
-            number.setTextFill(Color.YELLOWGREEN);
+            number.setTextFill(Color.ORANGE);
             number.setTranslateX((getMAP_WIDTH() / 2) - (relXi / getRATIO()) - 10);
             number.setTranslateY((getMAP_HEIGHT() / 2) - (relYi / getRATIO()));
             mapPane.getChildren().add(number);

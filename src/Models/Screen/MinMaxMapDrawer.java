@@ -3,11 +3,14 @@ package Models.Screen;
 import Models.Calculation.MinMax;
 import Models.Utilities.FileWorker;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import Models.Blueprint.Location;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class MinMaxMapDrawer extends MapDrawer{
@@ -36,17 +39,31 @@ public class MinMaxMapDrawer extends MapDrawer{
 
         Line maxLine = new Line((getMAP_WIDTH() / 2) - (relXmax / getRATIO()), (getMAP_HEIGHT() / 2) - (relYmax / getRATIO()),
                 getMAP_WIDTH() / 2, getMAP_HEIGHT() / 2);
-        maxLine.setFill(Color.YELLOW);
-        maxLine.setStroke(Color.YELLOW);
+        maxLine.setFill(Color.ORANGE);
+        maxLine.setStroke(Color.ORANGE);
         maxLine.setOpacity(0.5);
+        maxLine.setStrokeWidth(4.f);
         mapPane.getChildren().add(maxLine);
+        Label maxLabel = new Label("ระยะร้านที่ไกลที่สุด: " + (int) Math.sqrt(relXmax * relXmax + relYmax + relYmax) + " เมตร");
+        maxLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
+        maxLabel.setTextFill(Color.ORANGE);
+        maxLabel.setTranslateX(10);
+        maxLabel.setTranslateY(30);
+        mapPane.getChildren().add(maxLabel);
 
         Line minLine = new Line((getMAP_WIDTH() / 2) - (relXmin / getRATIO()), (getMAP_HEIGHT() / 2) - (relYmin / getRATIO()),
                 (getMAP_WIDTH() / 2), (getMAP_HEIGHT() / 2));
         minLine.setFill(Color.GREEN);
         minLine.setStroke(Color.GREEN);
         minLine.setOpacity(0.5);
+        minLine.setStrokeWidth(4.f);
         mapPane.getChildren().add(minLine);
+        Label minLabel = new Label("ระยะร้านที่ใกล้ที่สุด: " + (int) Math.sqrt(relXmin * relXmin + relYmin + relYmin) + " เมตร");
+        minLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
+        minLabel.setTextFill(Color.GREEN);
+        minLabel.setTranslateX(10);
+        minLabel.setTranslateY(50);
+        mapPane.getChildren().add(minLabel);
 
         return mapPane;
     }

@@ -12,6 +12,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Models.Utilities.FileWorker;
@@ -110,6 +111,7 @@ public class MapDrawer {
         Label ratioDisplay = new Label("อัตราส่วน 1:" + (int) this.getRATIO());
         ratioDisplay.setPadding(new Insets(10,10,10,10));
         ratioDisplay.setTextFill(Color.GRAY);
+        ratioDisplay.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
 
         mapPane.getChildren().add(mapImage);
 
