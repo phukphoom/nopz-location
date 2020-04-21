@@ -236,24 +236,16 @@ public class HomeController implements Initializable {
             mapDrawer.getMapStage().setTitle("NOPZ Location  |  Aggregation");
             mapDrawer.getStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
             mapDrawer.getStage().show();
-
-//            Stage mdStage = mapDrawer.getStage();
-//            for mini game
-//
-//            mdStage.setOnHidden(e-> {
-//                mapDrawer.getAnimTimer().stop();
-//            });
-//            mdStage.show();
         }
         catch(Exception exception){
             exception.printStackTrace();
             Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
             alertBox.setHeaderText(null);
 
-
-            Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            Stage alertStage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            alertStage.setAlwaysOnTop(true);
             try{
-                alertstage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
+                alertStage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
                 ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/error.png"))));
                 alertImage.setFitWidth(50);
                 alertImage.setFitHeight(50);
@@ -297,9 +289,10 @@ public class HomeController implements Initializable {
             exception.printStackTrace();
             Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
             alertBox.setHeaderText(null);
-            Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            Stage alertStage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            alertStage.setAlwaysOnTop(true);
             try{
-                alertstage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
+                alertStage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
                 ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/error.png"))));
                 alertImage.setFitWidth(50);
                 alertImage.setFitHeight(50);
@@ -336,9 +329,10 @@ public class HomeController implements Initializable {
             exception.printStackTrace();
             Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
             alertBox.setHeaderText(null);
-            Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            Stage alertStage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            alertStage.setAlwaysOnTop(true);
             try{
-                alertstage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
+                alertStage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
                 ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/error.png"))));
                 alertImage.setFitWidth(50);
                 alertImage.setFitHeight(50);
@@ -376,9 +370,10 @@ public class HomeController implements Initializable {
             exception.printStackTrace();
             Alert alertBox = new Alert(Alert.AlertType.ERROR,exception.getMessage());
             alertBox.setHeaderText(null);
-            Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            Stage alertStage = (Stage)alertBox.getDialogPane().getScene().getWindow();
+            alertStage.setAlwaysOnTop(true);
             try{
-                alertstage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
+                alertStage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/error.png")))));
                 ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/error.png"))));
                 alertImage.setFitWidth(50);
                 alertImage.setFitHeight(50);

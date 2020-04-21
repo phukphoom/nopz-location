@@ -41,13 +41,12 @@ public class MinMaxMapDrawer extends MapDrawer{
                 getMAP_WIDTH() / 2, getMAP_HEIGHT() / 2);
         maxLine.setFill(Color.ORANGE);
         maxLine.setStroke(Color.ORANGE);
-        maxLine.setFill(Color.RED);
-        maxLine.setStroke(Color.RED);
         maxLine.setStrokeWidth(2.0);
         maxLine.setOpacity(0.5);
         maxLine.setStrokeWidth(4.f);
         mapPane.getChildren().add(maxLine);
-        Label maxLabel = new Label("ระยะร้านที่ไกลที่สุด: " + (int) Math.sqrt(relXmax * relXmax + relYmax + relYmax) + " เมตร");
+
+        Label maxLabel = new Label("ระยะร้านที่ไกลที่สุด: " + (int) Math.sqrt(relXmax * relXmax + relYmax + relYmax) + " หน่วย");
         maxLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
         maxLabel.setTextFill(Color.ORANGE);
         maxLabel.setTranslateX(10);
@@ -62,7 +61,8 @@ public class MinMaxMapDrawer extends MapDrawer{
         minLine.setOpacity(0.5);
         minLine.setStrokeWidth(4.f);
         mapPane.getChildren().add(minLine);
-        Label minLabel = new Label("ระยะร้านที่ใกล้ที่สุด: " + (int) Math.sqrt(relXmin * relXmin + relYmin + relYmin) + " เมตร");
+
+        Label minLabel = new Label("ระยะร้านที่ใกล้ที่สุด: " + (int) Math.sqrt(relXmin * relXmin + relYmin + relYmin) + " หน่วย");
         minLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
         minLabel.setTextFill(Color.GREEN);
         minLabel.setTranslateX(10);

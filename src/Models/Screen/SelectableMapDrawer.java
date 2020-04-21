@@ -139,6 +139,8 @@ public class SelectableMapDrawer extends MapDrawer {
                 if(pickX < -56130.f || pickY < -37240 || pickX > 56075 || pickY > 37280) {
                     confirmPickStage.close();
                     Alert alertBox = new Alert(Alert.AlertType.WARNING, "ไม่สามารถเลือกจุดที่อยู่นอกแผนที่ได้ !");
+                    Stage alertStage = (Stage) (alertBox.getDialogPane().getScene().getWindow());
+                    alertStage.setAlwaysOnTop(true);
                     alertBox.setHeaderText(null);
                     Stage alertstage = (Stage)alertBox.getDialogPane().getScene().getWindow();
                     try{

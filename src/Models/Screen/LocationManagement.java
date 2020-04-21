@@ -89,7 +89,7 @@ public class LocationManagement {
             positionLabel.setAlignment(Pos.TOP_LEFT);
             positionLabel.setStyle("-fx-text-fill: #007467 ");
 
-            Label distantLabel = new Label("  ระยะห่าง = " + (int) location.distanceWith(FileWorker.readUserLocationFromFile()) + " เมตร");
+            Label distantLabel = new Label("  ระยะห่าง = " + (int) location.distanceWith(FileWorker.readUserLocationFromFile()) + " หน่วย");
             distantLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Light ver 1.00.otf"),20));
             distantLabel.setPrefWidth(450);
             distantLabel.setPrefHeight(50);

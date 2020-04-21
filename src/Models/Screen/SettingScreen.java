@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -39,12 +40,13 @@ public class SettingScreen {
         container.setVgap(10);
         container.setHgap(10);
 
-        scene = new Scene(container, 380,250);
+        scene = new Scene(container, 460,250);
 
         stage = new Stage();
         stage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/shield.png"))));
         stage.setTitle("Security Setting");
         stage.setResizable(false);
+        stage.setAlwaysOnTop(true);
         stage.setScene(scene);
     }
 
@@ -108,6 +110,8 @@ public class SettingScreen {
         });
 
         Button okBtn = new Button("บันทึก");
+        okBtn.setPrefWidth(80.f);
+        okBtn.setPrefHeight(30.f);
         okBtn.setOnMouseEntered(e->{
             okBtn.setStyle("-fx-background-color:#0f9900; -fx-background-radius: 30px; -fx-text-fill: #ffffff;");
         });
@@ -121,6 +125,8 @@ public class SettingScreen {
                 stage.close();
             } else {
                 Alert alertBox = new Alert(Alert.AlertType.WARNING, "รหัสผ่านไม่ปลอดภัย!\nรหัสที่ปลอดภัยควรมีความยาวมากกว่า 8 ตัวอักษร\nไม่มีช่องว่าง และมีทั้งพิมพ์ใหญ่และพิมพ์ ตัวเลขและอักขระพิเศษ");
+                Stage alertStage = (Stage) (alertBox.getDialogPane().getScene().getWindow());
+                alertStage.setAlwaysOnTop(true);
                 alertBox.showAndWait();
             }
         });
@@ -129,6 +135,8 @@ public class SettingScreen {
 
 
         Button cancelBtn = new Button("ยกเลิก");
+        cancelBtn.setPrefWidth(80.f);
+        cancelBtn.setPrefHeight(30.f);
         cancelBtn.setOnAction(e->{
             this.stage.close();
         });
@@ -142,6 +150,7 @@ public class SettingScreen {
         cancelBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
 
         Button easterEggBtn = new Button("เล่นเกม");
+        easterEggBtn.setPrefHeight(30.f);
         easterEggBtn.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),15));
         easterEggBtn.setStyle("-fx-background-color: transparent; -fx-background-radius: 30px; -fx-text-fill: transparent; -fx-min-width: 60px");
         GridPane.setConstraints(easterEggBtn, 3, 6);
@@ -181,13 +190,13 @@ public class SettingScreen {
                 }
             }
         });
+        HBox btnGroup = new HBox();
+        btnGroup.setSpacing(10);
+        btnGroup.getChildren().addAll(okBtn, cancelBtn);
+        GridPane.setConstraints(btnGroup, 2, 6);
 
-        GridPane.setConstraints(okBtn, 2, 6);
-        GridPane.setConstraints(cancelBtn, 2, 7);
-        //button.getChildren().addAll(okBtn,cancelBtn);
-        //GridPane.setConstraints(button,2,5);
         container.getChildren().addAll(title,isLock, isLockCheckBox, passwordLabel, passwordField, passwordVisibleField,
-                 showPasswordCheckBox,showPassword,okBtn,cancelBtn, easterEggBtn);
+                 showPasswordCheckBox,showPassword,btnGroup, easterEggBtn);
         return this.stage;
     }
 }

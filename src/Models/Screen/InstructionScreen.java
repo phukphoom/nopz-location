@@ -24,7 +24,8 @@ public class InstructionScreen {
 
         container.getChildren().add(scrollPane);
 
-        stage.setScene(new Scene(container, 450, 450));
+        stage.setScene(new Scene(container, 900, 800));
+        stage.setResizable(false);
         return stage;
     }
 }

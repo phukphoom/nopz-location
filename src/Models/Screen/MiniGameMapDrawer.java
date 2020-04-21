@@ -11,8 +11,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -37,10 +39,11 @@ public class MiniGameMapDrawer extends MapDrawer {
         label.setTranslateY(this.getMAP_HEIGHT() - 100);
         label.setTranslateX(this.getMAP_WIDTH() / 2 - 20);
         label.setText("คะแนน: 0");
+        label.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
         destinationLabel.setTranslateY(this.getMAP_HEIGHT() - 150);
         destinationLabel.setTranslateX(this.getMAP_WIDTH() / 2 - 20);
         destinationLabel.setText("เป้าหมาย: " + goal.getName());
-
+        destinationLabel.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
     }
 
     @Override
@@ -99,10 +102,9 @@ public class MiniGameMapDrawer extends MapDrawer {
                updateMap();
                ArrayList<Location> locs = player.sortByDistanceWith(getLocs());
                if(player.distanceWith(locs.get(0)) <= 500.f && locs.get(0).getName().compareTo(goal.getName()) == 0) {
-                   System.out.println("Oh yeah!");
                    point++;
                    label.setText("คะแนน: " + point);
-                   goal = locs.get(1);
+                   goal = locs.get((int) Math.random() * locs.size());
                    destinationLabel.setText("เป้าหมาย: " + goal.getName());
                }
            }};
