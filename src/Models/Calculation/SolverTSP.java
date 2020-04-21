@@ -19,16 +19,16 @@ public class SolverTSP {
     //Method
     // => Function to copy temporary solution to final solution
     private void copyToFinal(int curr_path[]){
-        for(int i=0;i<numberNode;i++){
-            finalPath[i] = curr_path[i];
+        for(int i=0;i<this.numberNode;i++){
+            this.finalPath[i] = curr_path[i];
         }
-        finalPath[numberNode] = curr_path[0];
+        this.finalPath[this.numberNode] = curr_path[0];
     }
 
     // => Function to find the minimum edge cost having an end at the vertex i
     private double firstMin(double adjacency_matrix[][], int i){
         double min = Double.MAX_VALUE;
-        for(int k=0;k<numberNode;k++){
+        for(int k=0;k<this.numberNode;k++){
             if(adjacency_matrix[i][k]<min && i!=k){
                 min = adjacency_matrix[i][k];
             }
@@ -39,7 +39,7 @@ public class SolverTSP {
     // => function to find the second minimum edge cost having an end at the vertex i
     private double secondMin(double adjacency_matrix[][], int i){
         double first = Double.MAX_VALUE, second = Double.MAX_VALUE;
-        for(int k=0;k<numberNode;k++){
+        for(int k=0;k<this.numberNode;k++){
             if(i == k){
                 continue;
             }
@@ -64,7 +64,7 @@ public class SolverTSP {
 
 
         // => base case is when we have reached level N which means we have covered all the nodes once
-        if(level == numberNode){
+        if(level == this.numberNode){
 
             // => check if there is an edge from last vertex in path back to the first vertex
             if(adjacency_matrix[curr_path[level - 1]][curr_path[0]] != 0){
@@ -72,19 +72,19 @@ public class SolverTSP {
                 double curr_cost = curr_weight + adjacency_matrix[curr_path[level-1]][curr_path[0]];
 
                 // => Update finalCost and finalPath if current_cost is better.
-                if(curr_cost < finalCost) {
+                if(curr_cost < this.finalCost) {
                     copyToFinal(curr_path);
-                    finalCost = curr_cost;
+                    this.finalCost = curr_cost;
                 }
             }
             return;
         }
 
         // => for any other level iterate for all vertices to build the search space tree recursively
-        for(int i = 0; i < numberNode; i++){
+        for(int i = 0; i < this.numberNode; i++){
 
             // => Consider next vertex if it is not same (diagonal entry in adjacency_matrixacency matrix and not visited already)
-            if(adjacency_matrix[curr_path[level-1]][i]!=0 && visitedNode[i] == false){
+            if(adjacency_matrix[curr_path[level-1]][i]!=0 && this.visitedNode[i] == false){
                 double temp = curr_bound;
                 curr_weight += adjacency_matrix[curr_path[level - 1]][i];
 
@@ -98,10 +98,10 @@ public class SolverTSP {
 
                 // curr_bound + curr_weight -> the actual lower bound
                 // => for the node that we have arrived on if current lower bound < finalCost, we need to explore the node further
-                if (curr_bound+curr_weight < finalCost)
+                if (curr_bound+curr_weight < this.finalCost)
                 {
                     curr_path[level] = i;
-                    visitedNode[i] = true;
+                    this.visitedNode[i] = true;
 
                     // call TSPRec for the next level
                     TSPRec(adjacency_matrix, curr_bound, curr_weight, level + 1, curr_path);
@@ -112,9 +112,9 @@ public class SolverTSP {
                 curr_bound = temp;
 
                 // Also reset the visited array
-                Arrays.fill(visitedNode,false);
+                Arrays.fill(this.visitedNode,false);
                 for (int j = 0; j <= level - 1; j++){
-                    visitedNode[curr_path[j]] = true;
+                    this.visitedNode[curr_path[j]] = true;
                 }
             }
         }
@@ -122,16 +122,16 @@ public class SolverTSP {
 
     // => function start to find finalPath[]
     private void TSP(double adjacency_matrix[][]) {
-        int curr_path[] = new int[numberNode + 1];
+        int curr_path[] = new int[this.numberNode + 1];
 
         // Calculate initial lower bound for the root node using the formula 1/2 * (sum of first min + second min) for all edges.
         // Also initialize the curr_path and visited array
         double curr_bound = 0;
         Arrays.fill(curr_path, -1);
-        Arrays.fill(visitedNode, false);
+        Arrays.fill(this.visitedNode, false);
 
         // => Compute initial bound
-        for (int i = 0; i < numberNode; i++){
+        for (int i = 0; i < this.numberNode; i++){
             curr_bound += (firstMin(adjacency_matrix, i) + secondMin(adjacency_matrix, i));
         }
 
@@ -145,7 +145,7 @@ public class SolverTSP {
 
 
         // We start at vertex 1 so the first vertex in curr_path[] is 0
-        visitedNode[0] = true;
+        this.visitedNode[0] = true;
         curr_path[0] = 0;
 
         // Call to TSPRec for curr_weight equal to 0 and level 1
@@ -156,32 +156,32 @@ public class SolverTSP {
     public int[] getPathTSP(double adjacency_matrix[][], int number_node){
 
         // Set up dataFIleds
-        adjacencyMatrix = adjacency_matrix;
-        numberNode = number_node;
-        visitedNode = new boolean[numberNode];
-        finalPath = new int[numberNode+1];
+        this.adjacencyMatrix = adjacency_matrix;
+        this.numberNode = number_node;
+        this.visitedNode = new boolean[this.numberNode];
+        this.finalPath = new int[this.numberNode+1];
 
         // Display input
         System.out.println("\t\t>>> Display Adjacency Matrix in Decimal");
-        for(int i=0;i<numberNode;i++){
+        for(int i=0;i<this.numberNode;i++){
             System.out.print("\t\t");
-            for(int j=0;j<numberNode;j++){
-                System.out.printf("    %05d",(int)adjacencyMatrix[i][j]);
+            for(int j=0;j<this.numberNode;j++){
+                System.out.printf("    %05d",(int)this.adjacencyMatrix[i][j]);
             }
             System.out.println();
         }
 
         // Solve TSP
-        TSP(adjacencyMatrix);
+        TSP(this.adjacencyMatrix);
 
         // Display output
-        System.out.printf("\t\t>>> TSP => Minimum cost\t: %.2f\n", finalCost);
+        System.out.printf("\t\t>>> TSP => Minimum cost\t: %.2f\n", this.finalCost);
         System.out.printf("\t\t>>> TSP => Path Taken\t: ");
-        for(int i = 0; i <= numberNode; i++)  {
-            System.out.printf("%d ", finalPath[i]);
+        for(int i = 0; i <= this.numberNode; i++)  {
+            System.out.printf("%d ", this.finalPath[i]);
         }
         System.out.println("\n");
 
-        return finalPath;
+        return this.finalPath;
     }
 }
