@@ -112,6 +112,7 @@ public class MapDrawer {
         ratioDisplay.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
         ratioDisplay.setPadding(new Insets(10,10,10,10));
         ratioDisplay.setTextFill(Color.GRAY);
+        ratioDisplay.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),18));
 
         mapPane.getChildren().add(mapImage);
 

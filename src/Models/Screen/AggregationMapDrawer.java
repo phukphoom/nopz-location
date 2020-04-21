@@ -51,13 +51,14 @@ public class AggregationMapDrawer extends MapDrawer {
             line.setOpacity(0.5);
 
             Label number = new Label("" + (i + 1));
+
+            number.setTextFill(Color.ORANGE);
+            number.setTranslateX((getMAP_WIDTH() / 2) - (relXi / getRATIO()) - 10);
+            number.setTranslateY((getMAP_HEIGHT() / 2) - (relYi / getRATIO()));
             number.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
             number.setTextFill(Color.BLUE);
             number.setTranslateX((getMAP_WIDTH() / 2) - (relXi / getRATIO()) +10);
             number.setTranslateY((getMAP_HEIGHT() / 2) - (relYi / getRATIO()) -5);
-
-            mapPane.getChildren().add(number);
-            mapPane.getChildren().add(line);
         }
         return mapPane;
     }
