@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -16,8 +17,12 @@ public class InstructionScreen {
 
     public Stage getStage() throws FileNotFoundException {
         Stage stage = new Stage();
+        stage.getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
+        stage.setTitle("NOPZ Location  |  Instruction");
+
         ScrollPane scrollPane = new ScrollPane();
         VBox container = new VBox();
+
         ImageView instructionImage = new ImageView();
         instructionImage.setImage(new Image(new FileInputStream("src/Views/resource/Image/instruction.png")));
         scrollPane.setContent(instructionImage);

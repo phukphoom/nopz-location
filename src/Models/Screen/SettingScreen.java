@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -127,6 +128,16 @@ public class SettingScreen {
                 Alert alertBox = new Alert(Alert.AlertType.WARNING, "รหัสผ่านไม่ปลอดภัย!\nรหัสที่ปลอดภัยควรมีความยาวมากกว่า 8 ตัวอักษร\nไม่มีช่องว่าง และมีทั้งพิมพ์ใหญ่และพิมพ์ ตัวเลขและอักขระพิเศษ");
                 Stage alertStage = (Stage) (alertBox.getDialogPane().getScene().getWindow());
                 alertStage.setAlwaysOnTop(true);
+                alertBox.setHeaderText(null);
+                try{
+                    alertStage.getIcons().add(new Image(new FileInputStream((new File("src/Views/resource/Image/warning.png")))));
+                    ImageView alertImage = new ImageView(new Image( new FileInputStream(new File("src/Views/resource/Image/warning.png"))));
+                    alertImage.setFitWidth(50);
+                    alertImage.setFitHeight(50);
+                    alertBox.setGraphic(alertImage);
+                }
+                catch (FileNotFoundException fileNotFoundException){
+                }
                 alertBox.showAndWait();
             }
         });
@@ -172,10 +183,11 @@ public class SettingScreen {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if(passwordField.getText().compareTo("minigame") == 0) {
+                    stage.close();
                     try{
                         MiniGameMapDrawer mapDrawer = null;
                         mapDrawer = new MiniGameMapDrawer(MAP_HEIGHT, MAP_WIDTH, RATIO, user.getX(), user.getY());
-                        mapDrawer.getMapStage().setTitle("NOPZ Location  |  Aggregation");
+                        mapDrawer.getMapStage().setTitle("NOPZ Location  |  Easter Egg NOPZ_MINIGAME");
                         mapDrawer.getStage().getIcons().add(new Image(new FileInputStream(new File("src/Views/resource/Image/Icon.png"))));
                         Stage mdStage = mapDrawer.getStage();
                         MiniGameMapDrawer finalMapDrawer = mapDrawer;

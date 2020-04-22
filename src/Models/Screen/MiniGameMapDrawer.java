@@ -35,7 +35,7 @@ public class MiniGameMapDrawer extends MapDrawer {
     public MiniGameMapDrawer(double MAP_HEIGHT, double MAP_WIDTH, double RATIO, double user_x, double user_y) throws IOException {
         super(MAP_HEIGHT, MAP_WIDTH, RATIO, user_x, user_y);
         player = new Location(getUser_x(), getUser_y(), "player");
-        goal = FileWorker.readLocationListFromFile().get((int) Math.random() * FileWorker.readLocationListFromFile().size());
+        goal = FileWorker.readLocationListFromFile().get((int)((Math.random()*100)%FileWorker.readLocationListFromFile().size()));
         label.setTranslateY(this.getMAP_HEIGHT() - 100);
         label.setTranslateX(this.getMAP_WIDTH() / 2 - 20);
         label.setText("คะแนน: 0");
@@ -104,7 +104,7 @@ public class MiniGameMapDrawer extends MapDrawer {
                if(player.distanceWith(locs.get(0)) <= 500.f && locs.get(0).getName().compareTo(goal.getName()) == 0) {
                    point++;
                    label.setText("คะแนน: " + point);
-                   goal = locs.get((int) Math.random() * locs.size());
+                   goal = locs.get((int)((Math.random()*100)%locs.size()));
                    destinationLabel.setText("เป้าหมาย: " + goal.getName());
                }
            }};
