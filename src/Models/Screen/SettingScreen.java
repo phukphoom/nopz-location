@@ -92,7 +92,12 @@ public class SettingScreen {
         passwordField.visibleProperty().bind(showPasswordCheckBox.selectedProperty().not());
         passwordVisibleField.visibleProperty().bind(showPasswordCheckBox.selectedProperty());
         GridPane.setConstraints(showPasswordCheckBox, 2, 5);
-        showPasswordCheckBox.setDisable(true);
+        if(setting.isLock()){
+            showPasswordCheckBox.setDisable(false);
+        }
+        else{
+            showPasswordCheckBox.setDisable(true);
+        }
 
         isLockCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override

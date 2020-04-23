@@ -266,7 +266,7 @@ public class LocationManagement {
         topContainer.setAlignment(Pos.TOP_LEFT);
         changeSortBy.setStyle("-fx-text-fill: #FF5733");
 
-        Label sortBy = new Label("จัดเรียงตามระยะทาง");
+        Label sortBy = new Label("จัดเรียงตามวันที่");
         sortBy.setFont(Font.loadFont(new FileInputStream("src/Views/resource/Fonts/FC Lamoon Bold ver 1.00.otf"),20));
         sortBy.setStyle("-fx-text-fill: #777777");
 
