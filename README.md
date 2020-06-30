@@ -1,7 +1,7 @@
 ![Reposize](https://img.shields.io/github/repo-size/phoom1477/NOPZ_Location)
 
 # **NOPZ_Location**
-<img src="./NOPZ_Location.png" alt="NOPZ_Location_preview" width="500">
+<img src="NOPZ_Location.png" alt="NOPZ_Location_preview" width="500">
 
 `Desktop Application | Java` สำหรับวิเคราะห์ตำเเหน่งร้านค้าของผู้ประกอบการ
 
