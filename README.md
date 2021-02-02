@@ -13,13 +13,13 @@
 - IntellJ (ใช้พัฒนา Source Code)
 - NetBeans (ใช้ Build)
 
-### **Features**
+### **Feature**
 - Aggregation
 - KNearest
 - Approximate
 - MinMax
 
-### **Developers**
+### **Contributor**
 - Nonthakon Jitchiranant
 - Nattapon Sukthaworn
 - Phukphoom Taphrae
